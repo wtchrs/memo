@@ -6,10 +6,12 @@ import { PgTransaction } from "drizzle-orm/pg-core";
 const client = new SQL(process.env.DATABASE_URL!)
 export const db = drizzle(client)
 
+export type Db = typeof db
+
 type Schema = Record<string, unknown>
 
 export type Tx =
-    | typeof db
+    | Db
     | PgTransaction<
         BunSQLQueryResultHKT,
         Schema,
