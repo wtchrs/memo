@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { Db, Tx } from "../db";
 import { NewUser, User, users } from "../db/schema/users";
-import { DuplicateError } from "../error";
+import { DuplicateError, NotFoundError } from "../error";
 
 // TODO: Implement login handler
 
@@ -27,6 +27,7 @@ export class UserService {
 
     async getUser(username: string, tx: Tx = this.db): Promise<User> {
         const [user] = await tx.select().from(users).where(eq(users.username, username))
+        if (!user) throw new NotFoundError(username)
         return user
     }
 }

@@ -9,7 +9,7 @@ export const sessions = pgTable('sessions', {
         .$defaultFn(() => randomBytes(16).toHex()),
     userId: uuid('users_id').references(() => users.id),
     data: jsonb().notNull().$defaultFn(() => ({})),
-    expiresAt: timestamp('expires_at').notNull(),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
 })
 
 export type Session = InferSelectModel<typeof sessions>
