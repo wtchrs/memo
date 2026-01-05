@@ -24,6 +24,18 @@ function isRequiredUpdateExpiration(expiresAt: Date) {
     return expiresAt.getTime() - Date.now() < 12 * 60 * 60 * 1000
 }
 
+type GetSessionOptions = {
+    sessionId?: string
+    tx?: Tx
+};
+
+type GenerateSessionOpsions = {
+    userId?: string
+    data?: Record<string, any>
+    expiresAt?: Date
+    tx?: Tx
+};
+
 export class SessionService {
     private db: Db
     private sessionContext = new AsyncLocalStorage<SessionContext>()
@@ -40,7 +52,7 @@ export class SessionService {
             data: {},
             expiresAt: new Date(0)
         } as SessionContext, async () => {
-            const { id, userId, data, expiresAt } = await c.get('sessionService').getOrGenerate({ sessionId: sessionIdCookie })
+            const { id, userId, data, expiresAt } = await c.get('sessionService').getSession({ sessionId: sessionIdCookie })
 
             const store = this.sessionContext.getStore()
             if (store) {
@@ -64,11 +76,27 @@ export class SessionService {
         })
     })
 
-    async rotate() {
+    async invalidate(tx: Tx = this.db) {
+        const store = this.sessionContext.getStore()
+        if (store?.sessionId) {
+            await tx
+                .delete(sessions)
+                .where(eq(sessions.id, store.sessionId))
+        }
+        if (store) {
+            store.sessionId = undefined
+            store.currentUserId = undefined
+            store.data = {}
+            // Expire cookie immediately in middleware
+            store.expiresAt = new Date(0)
+        }
+    }
+
+    async rotate(userId?: string) {
         const store = this.sessionContext.getStore()
         await this.db.transaction(async (tx) => {
-            if (store?.sessionId) await tx.delete(sessions).where(eq(sessions.id, store.sessionId))
-            const session = await this.getOrGenerate({ tx })
+            await this.invalidate(tx)
+            const session = await this.generateSession({ userId, data: store?.data, tx })
             if (store) {
                 store.sessionId = session.id
                 store.currentUserId = session.userId || undefined
@@ -84,21 +112,52 @@ export class SessionService {
 
     async set(key: string, value: any, tx: Tx = this.db) {
         const store = this.sessionContext.getStore()!
-        const keyPath = key.split('.')
+
         await tx
             .update(sessions)
             .set({
                 data: sql`jsonb_set(
-                    ${sessions.data},
-                    ${keyPath}::text[],
+                    COALESCE(${sessions.data}, '{}'::jsonb),
+                    ARRAY[${key}],
                     ${JSON.stringify(value)}::jsonb
                 )`
             })
             .where(eq(sessions.id, store.sessionId!))
+
         store.data[key] = value
     }
 
-    private async getOrGenerate({ sessionId, tx = this.db }: { sessionId?: string, tx?: Tx }): Promise<Session> {
+    async remove(key: string, tx: Tx = this.db) {
+        const store = this.sessionContext.getStore()!
+
+        await tx
+            .update(sessions)
+            .set({ data: sql`COALESCE($sessions.data, '{}'::jsonb) - ${key}` })
+            .where(eq(sessions.id, store.sessionId!))
+
+        delete store.data[key]
+    }
+
+    getCurrentUserId(): string | undefined {
+        return this.sessionContext.getStore()?.currentUserId;
+    }
+
+    private async generateSession({ userId, data, expiresAt, tx = this.db }: GenerateSessionOpsions) {
+        const newExpiresAt = expiresAt || getExpiresAt()
+
+        const [session] = await tx
+            .insert(sessions)
+            .values({ userId, data, expiresAt: newExpiresAt })
+            .returning()
+
+        if (!session) throw new HTTPException(500, { message: 'Something went wrong' })
+        return session
+    }
+
+    private async getSession({
+        sessionId,
+        tx = this.db,
+    }: GetSessionOptions): Promise<Session> {
         const newExpiresAt = getExpiresAt()
         if (sessionId) {
             const txRun = async (tx: Tx) => {
@@ -117,12 +176,7 @@ export class SessionService {
                 await tx.transaction(txRun)
             if (result) return result
         }
-        const [session] = await tx.insert(sessions).values({ expiresAt: newExpiresAt }).returning()
-        if (!session) throw new HTTPException(500, { message: 'Something went wrong' })
-        return session
-    }
-
-    getCurrentUserId(): string | undefined {
-        return this.sessionContext.getStore()?.currentUserId;
+        // Generate if the session does not exist
+        return await this.generateSession({ expiresAt: newExpiresAt, tx })
     }
 }
