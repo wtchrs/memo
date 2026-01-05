@@ -1,5 +1,4 @@
 import { Hono } from 'hono'
-import { sessionMiddleware } from './middlewares/session'
 import userRoute from './routes/users'
 import authRoute from './routes/auth'
 import { db } from './db'
@@ -18,7 +17,7 @@ app.use(async (c, next) => {
     await next()
 })
 
-app.use(sessionMiddleware)
+app.use(sessionService.getMiddleware())
 
 app.route('/api/users', userRoute)
 app.route('/api/auth', authRoute)

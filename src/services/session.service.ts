@@ -1,34 +1,128 @@
-import { eq } from "drizzle-orm";
-import { Db } from "../db";
+import { eq, sql } from "drizzle-orm";
+import { Db, isTransaction, Tx } from "../db";
 import { Session, sessions } from "../db/schema/sessions";
 import { HTTPException } from "hono/http-exception";
-import { requestContext } from "../middlewares/session";
+import { AsyncLocalStorage } from 'node:async_hooks'
+import { createMiddleware } from "hono/factory";
+import { getCookie, setCookie } from "hono/cookie";
+import { HonoVariables } from "../types";
+
+export interface SessionContext {
+    sessionId?: string
+    currentUserId?: string
+    data: Record<string, any>
+    expiresAt: Date
+}
+
+function getExpiresAt() {
+    // expiration: 24 hours
+    return new Date(Date.now() + 24 * 60 * 60 * 1000)
+}
+
+function isRequiredUpdateExpiration(expiresAt: Date) {
+    // Update expiresAt if it remains less than 1/2
+    return expiresAt.getTime() - Date.now() < 12 * 60 * 60 * 1000
+}
 
 export class SessionService {
     private db: Db
+    private sessionContext = new AsyncLocalStorage<SessionContext>()
 
     constructor(db: Db) {
         this.db = db
     }
 
-    async getOrGenerate(sessionId?: string): Promise<Session> {
-        // expiration = 24 hours
-        const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000)
-        if (sessionId) {
-            const [session] = await this.db.select().from(sessions).where(eq(sessions.id, sessionId))
-            if (session && session.expiresAt > new Date()) {
-                session.expiresAt = expiresAt
-                await this.db.update(sessions).set({ expiresAt }).where(eq(sessions.id, sessionId))
-                return session
+    getMiddleware = () => createMiddleware<{ Variables: HonoVariables }>(async (c, next) => {
+        const sessionIdCookie = getCookie(c, 'sessionId')
+
+        await this.sessionContext.run({
+            sessionId: sessionIdCookie,
+            data: {},
+            expiresAt: new Date(0)
+        } as SessionContext, async () => {
+            const { id, userId, data, expiresAt } = await c.get('sessionService').getOrGenerate({ sessionId: sessionIdCookie })
+
+            const store = this.sessionContext.getStore()
+            if (store) {
+                store.sessionId = id
+                store.currentUserId = userId || undefined
+                store.data = data as any
+                store.expiresAt = expiresAt
             }
-            if (session) await this.db.delete(sessions).where(eq(sessions.id, sessionId))
+
+            await next()
+
+            const finalStore = this.sessionContext.getStore()
+            if (finalStore?.sessionId) {
+                setCookie(c, 'sessionId', finalStore.sessionId, {
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: 'Lax',
+                    expires: finalStore.expiresAt,
+                })
+            }
+        })
+    })
+
+    async rotate() {
+        const store = this.sessionContext.getStore()
+        await this.db.transaction(async (tx) => {
+            if (store?.sessionId) await tx.delete(sessions).where(eq(sessions.id, store.sessionId))
+            const session = await this.getOrGenerate({ tx })
+            if (store) {
+                store.sessionId = session.id
+                store.currentUserId = session.userId || undefined
+                store.data = session.data as any
+                store.expiresAt = session.expiresAt
+            }
+        })
+    }
+
+    async get(key: string) {
+        return this.sessionContext.getStore()!.data[key]
+    }
+
+    async set(key: string, value: any, tx: Tx = this.db) {
+        const store = this.sessionContext.getStore()!
+        const keyPath = key.split('.')
+        await tx
+            .update(sessions)
+            .set({
+                data: sql`jsonb_set(
+                    ${sessions.data},
+                    ${keyPath}::text[],
+                    ${JSON.stringify(value)}::jsonb
+                )`
+            })
+            .where(eq(sessions.id, store.sessionId!))
+        store.data[key] = value
+    }
+
+    private async getOrGenerate({ sessionId, tx = this.db }: { sessionId?: string, tx?: Tx }): Promise<Session> {
+        const newExpiresAt = getExpiresAt()
+        if (sessionId) {
+            const txRun = async (tx: Tx) => {
+                const [session] = await tx.select().from(sessions).where(eq(sessions.id, sessionId)).for('update')
+                if (session && session.expiresAt > new Date()) {
+                    if (isRequiredUpdateExpiration(session.expiresAt)) {
+                        session.expiresAt = newExpiresAt
+                        await tx.update(sessions).set({ expiresAt: newExpiresAt }).where(eq(sessions.id, sessionId))
+                    }
+                    return session
+                }
+                if (session) await tx.delete(sessions).where(eq(sessions.id, sessionId))
+            }
+            const result = isTransaction(tx) ?
+                await txRun(tx) :
+                await tx.transaction(txRun)
+            if (result) return result
         }
-        const [session] = await this.db.insert(sessions).values({ expiresAt }).returning()
+        const [session] = await tx.insert(sessions).values({ expiresAt: newExpiresAt }).returning()
         if (!session) throw new HTTPException(500, { message: 'Something went wrong' })
         return session
     }
 
     getCurrentUserId(): string | undefined {
-        return requestContext.getStore()?.currentUserId;
+        return this.sessionContext.getStore()?.currentUserId;
     }
 }
