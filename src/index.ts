@@ -6,12 +6,12 @@ import { UserService } from './services/user.service'
 import { SessionService } from './services/session.service'
 import { AuthService } from './services/auth.service'
 import { HonoVariables } from './types'
-import { PasswordEncoder } from './utils/password-encoder'
+import { Argon2idPasswordEncoder } from './utils/password-encoder'
 
 const app = new Hono<{ Variables: HonoVariables }>()
-const userService = new UserService(db)
+const passwordEncoder = new Argon2idPasswordEncoder()
+const userService = new UserService(db, passwordEncoder)
 const sessionService = new SessionService(db)
-const passwordEncoder = new PasswordEncoder()
 const authService = new AuthService(db, sessionService, passwordEncoder)
 
 app.use(async (c, next) => {

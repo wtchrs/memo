@@ -25,7 +25,7 @@ app.post(
         if (c.get('sessionService').getCurrentUserId())
             throw new HTTPException(400, { message: 'Already logged in' })
         const { username, email, password } = c.req.valid('json')
-        const result = await c.get('userService').registerUser({ username, email, encodedPassword: password })
+        const result = await c.get('userService').registerUser({ username, email, rawPassword: password })
         if (!result) throw new HTTPException(500, { message: 'Something went wrong' })
         return c.json({ success: true })
     }

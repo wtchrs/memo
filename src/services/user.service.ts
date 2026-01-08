@@ -1,21 +1,31 @@
 import { eq } from "drizzle-orm";
 import { Db, Tx } from "../db";
-import { NewUser, User, users } from "../db/schema/users";
+import { User, users } from "../db/schema/users";
 import { DuplicateError, NotFoundError } from "../error";
+import { IPasswordEncoder } from "../utils/password-encoder";
 
-// TODO: Implement login handler
+type RegisterUserRequest = {
+    username: string
+    email: string
+    rawPassword: string
+}
 
 export class UserService {
-    private db: Db
+    private readonly db: Db
+    private readonly passwordEncoder: IPasswordEncoder
 
-    constructor(db: Db) {
+    constructor(db: Db, passwordEncoder: IPasswordEncoder) {
         this.db = db
+        this.passwordEncoder = passwordEncoder
     }
 
-    async registerUser(user: NewUser): Promise<User> {
+    async registerUser({ username, email, rawPassword }: RegisterUserRequest): Promise<User> {
+        const encodedPassword = await this.passwordEncoder.encode(rawPassword)
         try {
-            // TODO: Encode password
-            const [created] = await this.db.insert(users).values(user).returning()
+            const [created] = await this.db
+                .insert(users)
+                .values({ username, email, encodedPassword })
+                .returning()
             return created
         } catch (e: any) {
             if (e.code === '23505') {

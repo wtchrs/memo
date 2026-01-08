@@ -37,8 +37,8 @@ type GenerateSessionOpsions = {
 };
 
 export class SessionService {
-    private db: Db
-    private sessionContext = new AsyncLocalStorage<SessionContext>()
+    private readonly db: Db
+    private readonly sessionContext = new AsyncLocalStorage<SessionContext>()
 
     constructor(db: Db) {
         this.db = db
@@ -142,7 +142,12 @@ export class SessionService {
         return this.sessionContext.getStore()?.currentUserId;
     }
 
-    private async generateSession({ userId, data, expiresAt, tx = this.db }: GenerateSessionOpsions) {
+    private async generateSession({
+        userId,
+        data,
+        expiresAt,
+        tx = this.db,
+    }: GenerateSessionOpsions): Promise<Session> {
         const newExpiresAt = expiresAt || getExpiresAt()
 
         const [session] = await tx

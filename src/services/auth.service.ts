@@ -5,9 +5,9 @@ import { IPasswordEncoder } from "../utils/password-encoder";
 import { SessionService } from "./session.service";
 
 export class AuthService {
-    private db: Db
-    private sessionService: SessionService
-    private passwordEncoder: IPasswordEncoder
+    private readonly db: Db
+    private readonly sessionService: SessionService
+    private readonly passwordEncoder: IPasswordEncoder
 
     constructor(db: Db, sessionService: SessionService, passwordEncoder: IPasswordEncoder) {
         this.db = db
@@ -19,10 +19,10 @@ export class AuthService {
         const [user] = await this.db.select().from(users).where(eq(users.username, username))
         if (!user) {
             // Timing attack prevention
-            this.passwordEncoder.match(this.passwordEncoder.dummyEncodedPassword, password)
+            await this.passwordEncoder.match(this.passwordEncoder.dummyEncodedPassword, password)
             return false
         }
-        if (this.passwordEncoder.match(user.encodedPassword, password)) {
+        if (await this.passwordEncoder.match(user.encodedPassword, password)) {
             await this.sessionService.rotate(user.id)
             return true
         }
