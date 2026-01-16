@@ -9,13 +9,17 @@ import { AuthService } from './services/auth.service'
 import { HonoVariables } from './types'
 import { Argon2idPasswordEncoder } from './utils/password-encoder'
 import { MemoService } from './services/memo.service'
+import { TagService } from './services/tag.service'
+
 
 const app = new Hono<{ Variables: HonoVariables }>()
+
 const passwordEncoder = new Argon2idPasswordEncoder()
 const sessionService = new SessionService(db)
 const userService = new UserService(db, passwordEncoder)
 const authService = new AuthService(db, sessionService, passwordEncoder)
 const memoService = new MemoService(db)
+const tagService = new TagService(db)
 
 app.use(async (c, next) => {
     c.set('db', db)
@@ -24,6 +28,7 @@ app.use(async (c, next) => {
     c.set('userService', userService)
     c.set('authService', authService)
     c.set('memoService', memoService)
+    c.set('tagService', tagService)
     await next()
 })
 

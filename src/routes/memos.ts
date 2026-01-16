@@ -16,8 +16,11 @@ app.post(
         const req = c.req.valid('json')
         const userId = c.get('sessionService').getCurrentUserId()
         if (!userId) throw new UnauthorizedError()
-        const created = await c.get('memoService').create(req, userId)
-        // TODO: Implement adding tags for the created memo.
+        const created = await c.get('db').transaction(async (tx) => {
+            const created = await c.get('memoService').create(req, userId, tx)
+            await c.get('tagService').addTags(req.tags, created, tx)
+            return created
+        })
         return c.json({ success: true, memoId: created.id })
     }
 )
@@ -28,7 +31,11 @@ app.get(
         const userId = c.get('sessionService').getCurrentUserId()
         if (!userId) throw new UnauthorizedError()
         const userMemos = await c.get('memoService').getUserMemos(userId)
-        const mapped = userMemos.map(({ userId, ...memo }) => memo)
+        const tagMap = await c.get('tagService').getAllMemosTags(userMemos)
+        const mapped = userMemos.map(({ userId, ...memo }) => ({
+            ...memo,
+            tags: tagMap[memo.id] ?? []
+        }))
         return c.json({ count: mapped.length, contents: mapped })
     }
 )
@@ -40,8 +47,10 @@ app.get(
         const userId = c.get('sessionService').getCurrentUserId()
         if (!userId) throw new UnauthorizedError()
         const { memoId } = c.req.valid('param')
-        const { userId: _, ...memo } = await c.get('memoService').getMemo(memoId, userId)
-        return c.json(memo)
+        const memo = await c.get('memoService').getMemo(memoId, userId)
+        const tags = (await c.get('tagService').getMemoTags(memo)).map((t) => t.tag)
+        const { userId: _, ...memoRes } = memo
+        return c.json({ ...memoRes, tags })
     }
 )
 
@@ -53,9 +62,14 @@ app.put(
         const userId = c.get('sessionService').getCurrentUserId()
         if (!userId) throw new UnauthorizedError()
         const { memoId } = c.req.valid('param')
-        const updateMemoReq = c.req.valid('json')
-        await c.get('memoService').update(updateMemoReq, memoId, userId)
-        // TODO: Implement updating tags for the updated memo.
+        const { tags, ...updateMemo } = c.req.valid('json')
+        await c.get('db').transaction(async (tx) => {
+            await c.get('memoService').update(updateMemo, memoId, userId, tx)
+            if (tags) {
+                const memo = await c.get('memoService').getMemo(memoId, userId)
+                await c.get('tagService').updateTags(tags, memo, tx)
+            }
+        })
         return c.json({ success: true })
     }
 )
