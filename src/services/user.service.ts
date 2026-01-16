@@ -28,7 +28,7 @@ export class UserService {
                 .returning()
             return created
         } catch (e: any) {
-            if (e.code === '23505') {
+            if (e.cause.code === '23505') {
                 throw new DuplicateError('username')
             }
             throw e
