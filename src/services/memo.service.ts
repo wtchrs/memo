@@ -4,25 +4,10 @@ import { markOwned, Owned } from "../utils";
 import { Memo, memos } from "../db/schema/memos";
 import { and, eq } from "drizzle-orm";
 import { NotFoundError } from "../error";
+import { createMemoSchema, updateMemoSchema } from "../schemas/memo.schema";
 
-export const createMemoSchema = z.object({
-    type: z.enum(['TEXT', 'LINK', 'MEDIA'], { message: 'type must be TEXT, LINK or MEDIA' }),
-    title: z.string(),
-    content: z.string(),
-    tags: z.array(z.string().nonempty({ message: 'Empty tag is not allowed' }))
-})
-
-export type CreateMemoRequest = z.infer<typeof createMemoSchema>
-
-export const updateMemoSchema = z.object({
-    title: z.string().optional(),
-    content: z.string().optional(),
-    tags: z
-        .array(z.string().nonempty({ message: 'Empty tag is not allowed' }))
-        .optional(),
-})
-
-export type UpdateMemoRequest = z.infer<typeof updateMemoSchema>
+export type CreateMemoRequest = Omit<z.infer<typeof createMemoSchema>, 'tags'>
+export type UpdateMemoRequest = Omit<z.infer<typeof updateMemoSchema>, 'tags'>
 
 export class MemoService {
     private readonly db: Db
@@ -31,7 +16,7 @@ export class MemoService {
         this.db = db
     }
 
-    async create({ tags, ...memo }: CreateMemoRequest, userId: string, tx: Tx = this.db): Promise<Owned<Memo>> {
+    async create(memo: CreateMemoRequest, userId: string, tx: Tx = this.db): Promise<Owned<Memo>> {
         const [created] = await tx
             .insert(memos)
             .values({ ...memo, userId })
@@ -62,7 +47,7 @@ export class MemoService {
         return markOwned(memo)
     }
 
-    async update({ tags, ...data }: UpdateMemoRequest, memoId: string, userId: string, tx: Tx = this.db): Promise<Owned<Memo>> {
+    async update(data: UpdateMemoRequest, memoId: string, userId: string, tx: Tx = this.db): Promise<Owned<Memo>> {
         const [updated] = await tx
             .update(memos)
             .set(data)

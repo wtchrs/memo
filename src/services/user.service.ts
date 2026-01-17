@@ -19,10 +19,10 @@ export class UserService {
         this.passwordEncoder = passwordEncoder
     }
 
-    async registerUser({ username, email, rawPassword }: RegisterUserRequest): Promise<User> {
+    async registerUser({ username, email, rawPassword }: RegisterUserRequest, tx: Tx = this.db): Promise<User> {
         const encodedPassword = await this.passwordEncoder.encode(rawPassword)
         try {
-            const [created] = await this.db
+            const [created] = await tx
                 .insert(users)
                 .values({ username, email, encodedPassword })
                 .returning()

@@ -1,11 +1,9 @@
 import { Hono } from "hono";
 import { HonoVariables } from "../types";
 import { zValidator } from "@hono/zod-validator";
-import { createMemoSchema, updateMemoSchema } from "../services/memo.service";
+import { createMemoSchema, memoIdSchema, updateMemoSchema } from "../schemas/memo.schema";
 import { UnauthorizedError } from "../error";
 import z from "zod";
-
-const memoIdParamSchema = z.object({ memoId: z.uuid({ message: 'id must be UUID' }) })
 
 const app = new Hono<{ Variables: HonoVariables }>()
 
@@ -18,7 +16,7 @@ app.post(
         if (!userId) throw new UnauthorizedError()
         const created = await c.get('db').transaction(async (tx) => {
             const created = await c.get('memoService').create(req, userId, tx)
-            await c.get('tagService').addTags(req.tags, created, tx)
+            if (req.tags) await c.get('tagService').addTags(req.tags, created, tx)
             return created
         })
         return c.json({ success: true, memoId: created.id })
@@ -42,7 +40,7 @@ app.get(
 
 app.get(
     '/:memoId',
-    zValidator('param', memoIdParamSchema),
+    zValidator('param', z.object({ memoId: memoIdSchema })),
     async (c) => {
         const userId = c.get('sessionService').getCurrentUserId()
         if (!userId) throw new UnauthorizedError()
@@ -56,7 +54,7 @@ app.get(
 
 app.put(
     '/:memoId',
-    zValidator('param', memoIdParamSchema),
+    zValidator('param', z.object({ memoId: memoIdSchema })),
     zValidator('json', updateMemoSchema),
     async (c) => {
         const userId = c.get('sessionService').getCurrentUserId()
@@ -76,7 +74,7 @@ app.put(
 
 app.put(
     '/:memoId/trash',
-    zValidator('param', memoIdParamSchema),
+    zValidator('param', z.object({ memoId: memoIdSchema })),
     async (c) => {
         const userId = c.get('sessionService').getCurrentUserId()
         if (!userId) throw new UnauthorizedError()
@@ -88,7 +86,7 @@ app.put(
 
 app.put(
     '/:memoId/restore',
-    zValidator('param', memoIdParamSchema),
+    zValidator('param', z.object({ memoId: memoIdSchema })),
     async (c) => {
         const userId = c.get('sessionService').getCurrentUserId()
         if (!userId) throw new UnauthorizedError()
@@ -100,7 +98,7 @@ app.put(
 
 app.delete(
     '/:memoId',
-    zValidator('param', memoIdParamSchema),
+    zValidator('param', z.object({ memoId: memoIdSchema })),
     async (c) => {
         const userId = c.get('sessionService').getCurrentUserId()
         if (!userId) throw new UnauthorizedError()
