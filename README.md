@@ -2,7 +2,9 @@
 
 ## Getting started
 
-To run postgres in docker:
+### Backend
+
+Run postgres in docker:
 ```sh
 docker run -d -p 5432:5432 \
     -e POSTGRES_USER=user \
@@ -14,23 +16,27 @@ docker run -d -p 5432:5432 \
     postgres:latest
 ```
 
-To install dependencies:
+Install dependencies:
 ```sh
 bun install
 ```
 
-To create schemas in db:
+Create `apps/backend/.env` file:
+```
+DATABASE_URL=postgresql://user:password@localhost/sb_db
+TZ=Asia/Seoul
+```
+
+Create schemas in db:
 ```sh
 # Apply immediately.
-bunx --bun drizzle-kit push
+bun run db:push
 # Generate migration file and apply.
-bunx --bun drizzle-kit generate --name=init
-bunx --bun drizzle-kit migrate
+bun run db:generate
+bun run db:migrate
 ```
 
-To run:
+Run backend:
 ```sh
-bun run dev
+bun run dev:backend
 ```
-
-open http://localhost:3000
