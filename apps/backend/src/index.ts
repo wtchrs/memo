@@ -1,7 +1,4 @@
 import { Hono } from 'hono'
-import userRoute from './routes/user.route'
-import authRoute from './routes/auth.route'
-import memoRoute from './routes/memo.route'
 import { db } from './db'
 import { UserService } from './services/user.service'
 import { SessionService } from './services/session.service'
@@ -10,6 +7,7 @@ import { HonoVariables } from './types'
 import { Argon2idPasswordEncoder } from './utils/password-encoder'
 import { MemoService } from './services/memo.service'
 import { TagService } from './services/tag.service'
+import routeApp from './routes'
 
 
 const app = new Hono<{ Variables: HonoVariables }>()
@@ -34,8 +32,7 @@ app.use(async (c, next) => {
 
 app.use(sessionService.getMiddleware())
 
-app.route('/api/users', userRoute)
-app.route('/api/auth', authRoute)
-app.route('/api/memos', memoRoute)
+app.route("/api", routeApp)
 
 export default app
+export type AppType = typeof routeApp
