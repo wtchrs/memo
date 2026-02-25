@@ -12,6 +12,8 @@
     "dev:frontend": "bun --filter @second-brain/frontend --elide-lines=0 dev",
     "db:generate": "bun --filter @second-brain/backend --elide-lines=0 db:generate",
     "db:migrate": "bun --filter @second-brain/backend --elide-lines=0 db:migrate",
-    "db:push": "bun --filter @second-brain/backend --elide-lines=0 db:push"
+    "db:push": "bun --filter @second-brain/backend --elide-lines=0 db:push",
+    "storybook": "bun --filter @second-brain/frontend --elide-lines=0 storybook",
+    "storybook:build": "bun --filter @second-brain/frontend --elide-lines=0 storybook:build"
   }
 }
