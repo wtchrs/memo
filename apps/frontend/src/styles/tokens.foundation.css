@@ -1,0 +1,35 @@
+:root {
+    /* Colors (foundation palette) */
+    --ds-palette-brand-50:  var(--color-indigo-50);
+    --ds-palette-brand-100: var(--color-indigo-100);
+    --ds-palette-brand-500: var(--color-indigo-500);
+    --ds-palette-brand-700: var(--color-indigo-700);
+
+    --ds-palette-neutral-50:  var(--color-slate-50);
+    --ds-palette-neutral-950: var(--color-slate-950);
+
+    --ds-palette-red-300: var(--color-red-300);
+    --ds-palette-red-600: var(--color-red-600);
+}
+
+@theme {
+    /* Typography */
+    --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --font-weight-regular: 400;
+    --font-weight-semibold: 600;
+
+    /* Spacing scale */
+    --spacing: 4px;
+
+    /* Radius */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+
+    /* Shadow */
+    --shadow-elev-1: 0 1px 2px rgb(0 0 0 / 0.08);
+    --shadow-elev-2: 0 6px 18px rgb(0 0 0 / 0.12);
+}

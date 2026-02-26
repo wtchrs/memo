@@ -1,0 +1,65 @@
+/* semantic tokens */
+:root {
+  --ds-bg: var(--ds-palette-neutral-50);
+  --ds-fg: var(--ds-palette-neutral-950);
+
+  /* roles */
+  --ds-border: color-mix(in oklab, var(--ds-fg) 18%, var(--ds-bg));
+  --ds-muted:  color-mix(in oklab, var(--ds-fg) 55%, var(--ds-bg));
+
+  /* intents */
+  --ds-primary: var(--ds-palette-brand-500);
+  --ds-danger:  var(--ds-palette-red-600);
+
+  /* on-colors (text/icon colors on intent colors) */
+  /* reuse bg to automatically adjust light/dark */
+  --ds-on-primary: var(--ds-bg);
+  --ds-on-danger:  var(--ds-bg);
+
+  /* secondary: feels like "slightly floating surface" by mixing bg and fg */
+  --ds-secondary:    color-mix(in oklab, var(--ds-bg) 92%, var(--ds-fg));
+  --ds-on-secondary: var(--ds-fg);
+
+  /* states */
+  --ds-disabled-bg:     color-mix(in oklab, var(--ds-bg) 90%, var(--ds-fg));
+  --ds-disabled-fg:     color-mix(in oklab, var(--ds-fg) 40%, var(--ds-bg));
+  --ds-disabled-border: color-mix(in oklab, var(--ds-fg) 12%, var(--ds-bg));
+
+  /* focus ring */
+  --ds-ring: var(--ds-primary);
+}
+
+/* dark theme (class toggle or data-attribute toggle) */
+html.dark {
+  --ds-bg: var(--ds-palette-neutral-950);
+  --ds-fg: var(--ds-palette-neutral-50);
+
+  --ds-primary: var(--ds-palette-brand-100);
+  --ds-danger:  var(--ds-palette-red-300);
+
+  --ds-secondary: color-mix(in oklab, var(--ds-bg) 80%, var(--ds-fg));
+}
+
+/* expose as Tailwind class */
+@theme inline {
+  --color-bg: var(--ds-bg);
+  --color-fg: var(--ds-fg);
+
+  --color-border: var(--ds-border);
+  --color-muted: var(--ds-muted);
+
+  --color-primary: var(--ds-primary);
+  --color-on-primary: var(--ds-on-primary);
+
+  --color-secondary: var(--ds-secondary);
+  --color-on-secondary: var(--ds-on-secondary);
+
+  --color-danger: var(--ds-danger);
+  --color-on-danger: var(--ds-on-danger);
+
+  --color-disabled-bg: var(--ds-disabled-bg);
+  --color-disabled-fg: var(--ds-disabled-fg);
+  --color-disabled-border: var(--ds-disabled-border);
+
+  --color-ring: var(--ds-ring);
+}
