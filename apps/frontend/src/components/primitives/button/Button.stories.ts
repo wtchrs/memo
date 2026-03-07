@@ -13,6 +13,7 @@ const meta = {
         size: 'md',
         disabled: false,
         label: 'Button',
+        htmlType: 'button',
         onClick: fn(),
     },
 } satisfies Meta<typeof Button>
@@ -71,4 +72,16 @@ export const lg: Story = {
     }
 }
 
-// TODO: Implement
+export const submit: Story = {
+    args: {
+        htmlType: 'submit',
+        label: 'submit',
+    }
+}
+
+export const reset: Story = {
+    args: {
+        htmlType: 'reset',
+        label: 'reset',
+    }
+}

@@ -39,7 +39,7 @@ const buttonVariants = cva([
         },
         size: {
             sm: 'h-9 px-3 text-sm',
-            md: 'h-10 px-4 text-md',
+            md: 'h-10 px-4 text-base',
             lg: 'h-11 px-5 text-lg',
         }
     },
@@ -54,6 +54,7 @@ export interface ButtonProps {
     disabled?: boolean
     size?: 'sm' | 'md' | 'lg'
     label: string
+    htmlType?: 'button' | 'submit' | 'reset'
     onClick: () => void
 }
 
@@ -62,10 +63,12 @@ function Button({
     size = 'md',
     disabled = false,
     label,
-    onClick
+    htmlType = 'button',
+    onClick,
 }: ButtonProps) {
     return (
         <button
+            type={htmlType}
             className={buttonVariants({ variant, size })}
             onClick={onClick}
             disabled={disabled}
