@@ -1,4 +1,5 @@
 import { cva } from "class-variance-authority"
+import type { ReactNode } from "react"
 
 const buttonVariants = cva([
     'inline-flex items-center justify-center gap-2',
@@ -53,28 +54,28 @@ export interface ButtonProps {
     variant?: 'primary' | 'secondary' | 'danger'
     disabled?: boolean
     size?: 'sm' | 'md' | 'lg'
-    label: string
-    htmlType?: 'button' | 'submit' | 'reset'
-    onClick: () => void
+    children: ReactNode
+    type?: 'button' | 'submit' | 'reset'
+    onClick?: () => void
 }
 
 function Button({
     variant = 'secondary',
     size = 'md',
     disabled = false,
-    label,
-    htmlType = 'button',
+    type = 'button',
+    children,
     onClick,
 }: ButtonProps) {
     return (
         <button
-            type={htmlType}
+            type={type}
             className={buttonVariants({ variant, size })}
             onClick={onClick}
             disabled={disabled}
             aria-disabled={disabled}
         >
-            {label}
+            {children}
         </button>
     )
 }

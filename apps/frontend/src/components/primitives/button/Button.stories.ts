@@ -12,8 +12,8 @@ const meta = {
         variant: 'secondary',
         size: 'md',
         disabled: false,
-        label: 'Button',
-        htmlType: 'button',
+        children: 'Button',
+        type: 'button',
         onClick: fn(),
     },
 } satisfies Meta<typeof Button>
@@ -25,7 +25,7 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
     args: {
         variant: 'primary',
-        label: 'Primary',
+        children: 'Primary',
     },
 };
 
@@ -33,55 +33,55 @@ export const Secondary: Story = {
     name: 'Secondary (default)',
     args: {
         variant: 'secondary',
-        label: 'Secondary',
+        children: 'Secondary',
     }
 }
 
 export const Danger: Story = {
     args: {
         variant: 'danger',
-        label: 'Danger',
+        children: 'Danger',
     }
 }
 
-export const disabled: Story = {
+export const Disabled: Story = {
     args: {
         disabled: true,
-        label: 'Disabled',
+        children: 'Disabled',
     }
 }
 
-export const sm: Story = {
+export const Sm: Story = {
     args: {
         size: 'sm',
-        label: 'sm',
+        children: 'sm',
     }
 }
 
-export const md: Story = {
+export const Md: Story = {
     args: {
         size: 'md',
-        label: 'md',
+        children: 'md',
     }
 }
 
-export const lg: Story = {
+export const Lg: Story = {
     args: {
         size: 'lg',
-        label: 'lg',
+        children: 'lg',
     }
 }
 
-export const submit: Story = {
+export const Submit: Story = {
     args: {
-        htmlType: 'submit',
-        label: 'submit',
+        type: 'submit',
+        children: 'submit',
     }
 }
 
-export const reset: Story = {
+export const Reset: Story = {
     args: {
-        htmlType: 'reset',
-        label: 'reset',
+        type: 'reset',
+        children: 'reset',
     }
 }

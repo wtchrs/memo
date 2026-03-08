@@ -8,9 +8,9 @@ const meta = {
         layout: 'centered',
     },
     args: {
-        variant: 'secondary',
-        label: 'Heading',
-        htmlTag: 'h3',
+        tone: 'default',
+        children: 'Heading',
+        as: 'h3',
     }
 } satisfies Meta<typeof Heading>
 
@@ -18,65 +18,72 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const primary: Story = {
+export const Brand: Story = {
     args: {
-        variant: 'primary',
-        label: 'primary',
+        tone: 'brand',
+        children: 'Brand',
     }
 }
 
-export const secondary: Story = {
+export const Default: Story = {
     args: {
-        variant: 'secondary',
-        label: 'secondary',
+        tone: 'default',
+        children: 'Default',
     }
 }
 
-export const danger: Story = {
+export const Danger: Story = {
     args: {
-        variant: 'danger',
-        label: 'danger',
+        tone: 'danger',
+        children: 'Danger',
     }
 }
 
-export const heading1: Story = {
+export const Muted: Story = {
     args: {
-        htmlTag: 'h1',
-        label: 'heading 1',
+        tone: 'muted',
+        children: 'Muted',
     }
 }
 
-export const heading2: Story = {
+export const Heading1: Story = {
     args: {
-        htmlTag: 'h2',
-        label: 'heading 2',
+        as: 'h1',
+        children: 'heading 1',
     }
 }
 
-export const heading3: Story = {
+export const Heading2: Story = {
     args: {
-        htmlTag: 'h3',
-        label: 'heading 3',
+        as: 'h2',
+        children: 'heading 2',
     }
 }
 
-export const heading4: Story = {
+export const Heading3: Story = {
     args: {
-        htmlTag: 'h4',
-        label: 'heading 4',
+        as: 'h3',
+        children: 'heading 3',
     }
 }
 
-export const heading5: Story = {
+export const Heading4: Story = {
     args: {
-        htmlTag: 'h5',
-        label: 'heading 5',
+        as: 'h4',
+        children: 'heading 4',
     }
 }
 
-export const heading6: Story = {
+export const Heading5: Story = {
     args: {
-        htmlTag: 'h6',
-        label: 'heading 6',
+        as: 'h5',
+        children: 'heading 5',
+    }
+}
+
+export const Heading6: Story = {
+    args: {
+        as: 'h6',
+        children: 'heading 6',
     }
 }

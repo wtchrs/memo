@@ -1,13 +1,15 @@
 import { cva } from "class-variance-authority"
+import type { ReactNode } from "react"
 
 const HeadingVariants = cva([
     'font-sans',
 ], {
     variants: {
-        variant: {
-            primary: ['text-primary'],
-            secondary: ['text-fg'],
+        tone: {
+            brand: ['text-primary'],
+            default: ['text-fg'],
             danger: ['text-danger'],
+            muted: ['text-muted'],
         },
         size: {
             sm: ['text-heading-sm'],
@@ -16,15 +18,15 @@ const HeadingVariants = cva([
         }
     },
     defaultVariants: {
-        variant: 'secondary',
+        tone: 'default',
     }
 })
 
 interface HeadingProps {
-    variant?: 'primary' | 'secondary' | 'danger'
+    tone?: 'brand' | 'default' | 'danger' | 'muted'
     size?: 'sm' | 'md' | 'lg'
-    label: string
-    htmlTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+    as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+    children: ReactNode
 }
 
 const defaultSizeByTag = {
@@ -37,17 +39,17 @@ const defaultSizeByTag = {
 } as const
 
 function Heading({
-    variant = 'secondary',
+    tone = 'default',
     size,
-    label,
-    htmlTag = 'h3',
+    as = 'h3',
+    children,
 }: HeadingProps) {
-    const Component = htmlTag
-    const resolvedSize = size ?? defaultSizeByTag[htmlTag]
+    const Component = as
+    const resolvedSize = size ?? defaultSizeByTag[as]
 
     return (
-        <Component className={HeadingVariants({ variant, size: resolvedSize })}>
-            {label}
+        <Component className={HeadingVariants({ tone, size: resolvedSize })}>
+            {children}
         </Component>
     )
 }

@@ -1,14 +1,16 @@
 import { cva } from "class-variance-authority"
+import type { ReactNode } from "react"
 
 const TextVariants = cva([
     'font-sans',
     'font-regular',
 ], {
     variants: {
-        variant: {
-            primary: ['text-primary'],
-            secondary: ['text-fg'],
+        tone: {
+            default: ['text-fg'],
+            brand: ['text-primary'],
             danger: ['text-danger'],
+            muted: ['text-muted'],
         },
         size: {
             sm: ['text-sm'],
@@ -17,29 +19,29 @@ const TextVariants = cva([
         },
     },
     defaultVariants: {
-        variant: 'primary',
+        tone: 'default',
         size: 'md',
     },
 })
 
 interface TextProps {
-    variant?: 'primary' | 'secondary' | 'danger'
+    tone?: 'default' | 'brand' | 'danger' | 'muted'
     size?: 'sm' | 'md' | 'lg'
-    label: string
-    htmlTag?: 'p' | 'span'
+    as?: 'p' | 'span'
+    children: ReactNode
 }
 
 function Text({
-    variant = 'secondary',
+    tone = 'default',
     size = 'md',
-    label,
-    htmlTag = 'p',
+    as = 'p',
+    children,
 }: TextProps) {
-    const Component = htmlTag
+    const Component = as
 
     return (
-        <Component className={TextVariants({ variant, size })}>
-            {label}
+        <Component className={TextVariants({ tone, size })}>
+            {children}
         </Component>
     )
 }
