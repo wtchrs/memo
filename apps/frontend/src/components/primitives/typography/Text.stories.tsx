@@ -4,14 +4,25 @@ import Text from './Text'
 const meta = {
     title: 'typography/Text',
     component: Text,
-    parameters: {
-        layout: 'centered',
-    },
     args: {
         tone: 'default',
         size: 'md',
-        children: 'Text',
         as: 'p',
+        children: 'Text',
+    },
+    argTypes: {
+        tone: {
+            type: { name: 'enum', value: ['brand', 'default', 'danger', 'muted'] },
+            table: { defaultValue: { summary: 'default' } },
+        },
+        size: {
+            type: { name: 'enum', value: ['sm', 'md', 'lg'] },
+            table: { defaultValue: { summary: 'md' } },
+        },
+        as: {
+            type: { name: 'enum', value: ['p', 'span'] },
+            table: { defaultValue: { summary: 'p' } },
+        }
     }
 } satisfies Meta<typeof Text>
 

@@ -16,6 +16,24 @@ const meta = {
         type: 'button',
         onClick: fn(),
     },
+    argTypes: {
+        variant: {
+            type: { name: 'enum', value: ['primary', 'secondary', 'danger'] },
+            table: { defaultValue: { summary: 'secondary' } },
+        },
+        size: {
+            type: { name: 'enum', value: ['sm', 'md', 'lg'] },
+            table: { defaultValue: { summary: 'md' } },
+        },
+        disabled: {
+            type: 'boolean',
+            table: { defaultValue: { summary: 'false' } },
+        },
+        type: {
+            type: { name: 'enum', value: ['button', 'submit', 'reset'] },
+            table: { defaultValue: { summary: 'button' } },
+        },
+    }
 } satisfies Meta<typeof Button>
 
 export default meta
@@ -30,7 +48,6 @@ export const Primary: Story = {
 };
 
 export const Secondary: Story = {
-    name: 'Secondary (default)',
     args: {
         variant: 'secondary',
         children: 'Secondary',

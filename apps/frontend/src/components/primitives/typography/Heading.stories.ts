@@ -4,14 +4,22 @@ import Heading from './Heading'
 const meta = {
     title: 'typography/Heading',
     component: Heading,
-    parameters: {
-        layout: 'centered',
-    },
     args: {
         tone: 'default',
         children: 'Heading',
         as: 'h3',
-    }
+    },
+    argTypes: {
+        tone: {
+            type: { name: 'enum', value: ['brand', 'default', 'danger', 'muted'] },
+            table: { defaultValue: { summary: 'default' } },
+        },
+        as: {
+            control: 'inline-radio',
+            type: { name: 'enum', value: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] },
+            table: { defaultValue: { summary: 'h3' } },
+        },
+    },
 } satisfies Meta<typeof Heading>
 
 export default meta
