@@ -1,5 +1,6 @@
 import { cva } from "class-variance-authority"
-import type { ReactNode } from "react"
+import { twMerge } from "tailwind-merge"
+import type { NativePropsWithoutRef } from "@/utils/polymorphicProps"
 
 const HeadingVariants = cva([
     'font-sans',
@@ -22,12 +23,15 @@ const HeadingVariants = cva([
     }
 })
 
-interface HeadingProps {
+type HeadingOwnProps = {
     tone?: 'brand' | 'default' | 'danger' | 'muted'
     size?: 'sm' | 'md' | 'lg'
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-    children: ReactNode
 }
+
+export type HeadingProps =
+    & HeadingOwnProps
+    & NativePropsWithoutRef<'h1', HeadingOwnProps>
 
 const defaultSizeByTag = {
     h1: 'lg',
@@ -42,13 +46,19 @@ function Heading({
     tone = 'default',
     size,
     as = 'h3',
+    className,
     children,
+    ...nativeProps
 }: HeadingProps) {
     const Component = as
     const resolvedSize = size ?? defaultSizeByTag[as]
+    const resolvedClassName = twMerge(HeadingVariants({ tone, size: resolvedSize }), className)
 
     return (
-        <Component className={HeadingVariants({ tone, size: resolvedSize })}>
+        <Component
+            className={resolvedClassName}
+            {...nativeProps}
+        >
             {children}
         </Component>
     )

@@ -1,5 +1,6 @@
+import { twMerge } from "tailwind-merge"
 import { cva } from "class-variance-authority"
-import type { ReactNode } from "react"
+import type { PolymorphicPropsWithoutRef } from "@/utils/polymorphicProps"
 
 const TextVariants = cva([
     'font-sans',
@@ -24,23 +25,35 @@ const TextVariants = cva([
     },
 })
 
-interface TextProps {
+type TextOwnProps = {
     tone?: 'default' | 'brand' | 'danger' | 'muted'
     size?: 'sm' | 'md' | 'lg'
-    as?: 'p' | 'span'
-    children: ReactNode
 }
+
+export type TextProps = PolymorphicPropsWithoutRef<
+    'p',
+    'span',
+    TextOwnProps,
+    'dangerouslySetInnerHTML'
+>
+
 
 function Text({
     tone = 'default',
     size = 'md',
     as = 'p',
+    className,
     children,
+    ...nativeProps
 }: TextProps) {
     const Component = as
+    const resolvedClassName = twMerge(TextVariants({ tone, size }), className)
 
     return (
-        <Component className={TextVariants({ tone, size })}>
+        <Component
+            className={resolvedClassName}
+            {...nativeProps}
+        >
             {children}
         </Component>
     )

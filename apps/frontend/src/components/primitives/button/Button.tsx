@@ -1,5 +1,6 @@
 import { cva } from "class-variance-authority"
-import type { ReactNode } from "react"
+import { twMerge } from "tailwind-merge"
+import type { NativeProps } from "@/utils/polymorphicProps"
 
 const buttonVariants = cva([
     'inline-flex items-center justify-center gap-2',
@@ -50,30 +51,30 @@ const buttonVariants = cva([
     },
 })
 
-export interface ButtonProps {
+type ButtonOwnProps = {
     variant?: 'primary' | 'secondary' | 'danger'
-    disabled?: boolean
     size?: 'sm' | 'md' | 'lg'
-    children: ReactNode
-    type?: 'button' | 'submit' | 'reset'
-    onClick?: () => void
 }
+
+export type ButtonProps =
+    & ButtonOwnProps
+    & NativeProps<'button', ButtonOwnProps>
 
 function Button({
     variant = 'secondary',
     size = 'md',
-    disabled = false,
     type = 'button',
+    className,
     children,
-    onClick,
+    ...nativeProps
 }: ButtonProps) {
+    const resolvedClassName = twMerge(buttonVariants({ variant, size }), className)
+
     return (
         <button
+            className={resolvedClassName}
             type={type}
-            className={buttonVariants({ variant, size })}
-            onClick={onClick}
-            disabled={disabled}
-            aria-disabled={disabled}
+            {...nativeProps}
         >
             {children}
         </button>
