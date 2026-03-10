@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority"
-import { twMerge } from "tailwind-merge"
 import type { NativeProps } from "@/utils/polymorphicProps"
+import { twMerge } from "@/utils/customTailwindMerge"
 
 const buttonVariants = cva([
     'inline-flex items-center justify-center gap-2',

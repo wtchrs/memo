@@ -1,6 +1,6 @@
-import { twMerge } from "tailwind-merge"
 import { cva } from "class-variance-authority"
 import type { PolymorphicPropsWithoutRef } from "@/utils/polymorphicProps"
+import { twMerge } from "@/utils/customTailwindMerge"
 
 const TextVariants = cva([
     'font-sans',
