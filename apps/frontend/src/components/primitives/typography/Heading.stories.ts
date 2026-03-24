@@ -1,23 +1,56 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Heading from './Heading'
 
+const UNSET = "__unset__" as const;
+
 const meta = {
     title: 'typography/Heading',
     component: Heading,
+
     args: {
         tone: 'default',
         children: 'Heading',
         as: 'h3',
     },
+
     argTypes: {
         tone: {
-            type: { name: 'enum', value: ['brand', 'default', 'danger', 'muted'] },
-            table: { defaultValue: { summary: 'default' } },
+            options: [UNSET, 'brand', 'default', 'danger', 'muted'],
+            mapping: { [UNSET]: undefined },
+            control: {
+                type: 'radio',
+                labels: { [UNSET]: 'auto' },
+            },
+            table: {
+                type: { summary: "'brand' | 'default' | 'danger' | 'muted' | undefined" },
+                defaultValue: { summary: 'default' },
+            },
         },
+
+        size: {
+            options: [UNSET, 'sm', 'md', 'lg'],
+            mapping: { [UNSET]: undefined },
+            control: {
+                type: 'radio',
+                labels: { [UNSET]: 'auto' },
+            },
+            table: {
+                type: { summary: "'sm' | 'md' | 'lg'" },
+                defaultValue: { summary: 'auto' },
+            }
+        },
+
         as: {
-            control: 'inline-radio',
-            type: { name: 'enum', value: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] },
-            table: { defaultValue: { summary: 'h3' } },
+            options: [UNSET, 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+            mapping: { [UNSET]: undefined },
+            control: {
+                type: 'inline-radio',
+                labels: { [UNSET]: 'auto' },
+            },
+            table: {
+                type: { summary: "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | undefined" },
+                defaultValue: { summary: 'h3' },
+            },
         },
     },
 } satisfies Meta<typeof Heading>
@@ -26,17 +59,17 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Brand: Story = {
-    args: {
-        tone: 'brand',
-        children: 'Brand',
-    }
-}
-
 export const Default: Story = {
     args: {
         tone: 'default',
         children: 'Default',
+    }
+}
+
+export const Brand: Story = {
+    args: {
+        tone: 'brand',
+        children: 'Brand',
     }
 }
 

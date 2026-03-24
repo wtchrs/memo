@@ -5,9 +5,11 @@ import Button from './Button'
 const meta = {
     title: 'button/Button',
     component: Button,
+
     parameters: {
         layout: 'centered',
     },
+
     args: {
         variant: 'secondary',
         size: 'md',
@@ -16,22 +18,38 @@ const meta = {
         type: 'button',
         onClick: fn(),
     },
+
     argTypes: {
         variant: {
-            type: { name: 'enum', value: ['primary', 'secondary', 'danger'] },
-            table: { defaultValue: { summary: 'secondary' } },
+            options: ['primary', 'secondary', 'danger'],
+            control: 'radio',
+            table: {
+                type: { summary: "'primary' | 'secondary' | 'danger'" },
+                defaultValue: { summary: 'secondary' },
+            },
         },
+
         size: {
-            type: { name: 'enum', value: ['sm', 'md', 'lg'] },
-            table: { defaultValue: { summary: 'md' } },
+            options: ['sm', 'md', 'lg'],
+            control: 'radio',
+            table: {
+                type: { summary: "'sm' | 'md' | 'lg'" },
+                defaultValue: { summary: 'md' },
+            },
         },
+
         disabled: {
             type: 'boolean',
             table: { defaultValue: { summary: 'false' } },
         },
+
         type: {
-            type: { name: 'enum', value: ['button', 'submit', 'reset'] },
-            table: { defaultValue: { summary: 'button' } },
+            options: ['button', 'submit', 'reset'],
+            control: 'radio',
+            table: {
+                type: { summary: "'button' | 'submit' | 'reset'" },
+                defaultValue: { summary: 'button' },
+            },
         },
     }
 } satisfies Meta<typeof Button>
