@@ -1,28 +1,91 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import Text from './Text'
 
+const UNSET = "__unset__" as const;
+
 const meta = {
     title: 'typography/Text',
     component: Text,
+
     args: {
-        tone: 'default',
-        size: 'md',
         as: 'p',
+        size: 'md',
         children: 'Text',
     },
+
     argTypes: {
-        tone: {
-            type: { name: 'enum', value: ['brand', 'default', 'danger', 'muted'] },
-            table: { defaultValue: { summary: 'default' } },
-        },
-        size: {
-            type: { name: 'enum', value: ['sm', 'md', 'lg'] },
-            table: { defaultValue: { summary: 'md' } },
-        },
         as: {
-            type: { name: 'enum', value: ['p', 'span'] },
-            table: { defaultValue: { summary: 'p' } },
-        }
+            options: ['p', 'span', 'strong', 'em', 'del'],
+            table: {
+                type: { summary: "'p' | 'span' | 'strong' | 'em' | 'del'" },
+                defaultValue: { summary: 'p' },
+            },
+        },
+
+        tone: {
+            options: [UNSET, 'brand', 'default', 'danger', 'muted'],
+            mapping: { [UNSET]: undefined },
+            control: {
+                type: 'radio',
+                labels: { [UNSET]: 'auto' },
+            },
+            table: {
+                type: { summary: "'brand' | 'default' | 'danger' | 'muted' | undefined" },
+                defaultValue: { summary: 'auto' },
+            },
+        },
+
+        size: {
+            options: ['sm', 'md', 'lg'],
+            control: { type: 'radio' },
+            table: {
+                type: { summary: "'sm' | 'md' | 'lg'" },
+                defaultValue: { summary: 'md' },
+            },
+        },
+
+        weight: {
+            options: [UNSET, 'regular', 'semibold'],
+            mapping: { [UNSET]: undefined },
+            control: {
+                type: 'radio',
+                labels: { [UNSET]: 'auto' },
+            },
+            table: {
+                type: { summary: "'regular' | 'semibold' | undefined" },
+                defaultValue: { summary: 'auto' },
+            },
+        },
+
+        italic: {
+            options: [UNSET, 'true', 'false'],
+            mapping: {
+                [UNSET]: undefined,
+                'true': true,
+                'false': false,
+            },
+            control: {
+                type: 'radio',
+                labels: { [UNSET]: 'auto' },
+            },
+            table: {
+                type: { summary: "boolean?" },
+                defaultValue: { summary: 'auto' },
+            },
+        },
+
+        strikethrough: {
+            options: [UNSET, true, false],
+            mapping: { [UNSET]: undefined },
+            control: {
+                type: 'radio',
+                labels: { [UNSET]: 'auto' },
+            },
+            table: {
+                type: { summary: "boolean?" },
+                defaultValue: { summary: 'auto' },
+            },
+        },
     }
 } satisfies Meta<typeof Text>
 
@@ -30,17 +93,16 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
+export const Default: Story = {
+    args: {
+        children: 'Default',
+    }
+}
+
 export const Brand: Story = {
     args: {
         tone: 'brand',
         children: 'Brand',
-    }
-}
-
-export const Default: Story = {
-    args: {
-        tone: 'default',
-        children: 'Default',
     }
 }
 
@@ -83,6 +145,48 @@ export const Span: Story = {
     args: {
         as: 'span',
         children: 'Span',
+    }
+}
+
+export const Strong: Story = {
+    args: {
+        as: 'strong',
+        children: 'Strong',
+    }
+}
+
+export const Em: Story = {
+    args: {
+        as: 'em',
+        children: 'Em',
+    }
+}
+
+export const Del: Story = {
+    args: {
+        as: 'del',
+        children: 'Del'
+    }
+}
+
+export const Semibold: Story = {
+    args: {
+        weight: 'semibold',
+        children: 'Semibold',
+    }
+}
+
+export const Italic: Story = {
+    args: {
+        italic: true,
+        children: 'Italic',
+    }
+}
+
+export const Strikethrough: Story = {
+    args: {
+        strikethrough: true,
+        children: 'Strikethrough',
     }
 }
 
