@@ -12,3 +12,6 @@ drizzle/
 
 # docker volume
 pgdata/
+
+# local postgres
+.postgres/
