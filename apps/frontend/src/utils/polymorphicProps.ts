@@ -27,78 +27,55 @@ export type NativePropsWithoutRef<
 > = Omit<PropsOfWithoutRef<T>, keyof OwnProps | Excludes>
 
 
-type DefaultAsCase<
-    T extends IntrinsicTag,
-    OwnProps extends object = {},
-    Excludes extends keyof PropsOf<T> = never
+type PolymorphicPropsCase<
+    Native extends object,
+    OwnProps extends object,
+    AsProps extends object,
+    Excludes extends PropertyKey
 > =
     & OwnProps
-    & { as?: T }
-    & NativeProps<T, OwnProps & { as?: T }, Excludes>
-
-type DefaultAsCaseWithoutRef<
-    T extends IntrinsicTag,
-    OwnProps extends object = {},
-    Excludes extends keyof PropsOfWithoutRef<T> = never
-> =
-    & OwnProps
-    & { as?: T }
-    & NativePropsWithoutRef<T, OwnProps & { as?: T }, Excludes>
-
-
-type RequiredAsCase<
-    T extends IntrinsicTag,
-    OwnProps extends object = {},
-    Excludes extends keyof PropsOf<T> = never
-> =
-    & OwnProps
-    & { as: T }
-    & NativeProps<T, OwnProps & { as: T }, Excludes>
-
-type RequiredAsCaseWithoutRef<
-    T extends IntrinsicTag,
-    OwnProps extends object = {},
-    Excludes extends keyof PropsOfWithoutRef<T> = never
-> =
-    & OwnProps
-    & { as: T }
-    & NativePropsWithoutRef<T, OwnProps & { as: T }, Excludes>
+    & AsProps
+    & Omit<Native, keyof OwnProps | keyof AsProps | Excludes>
 
 
 export type PolymorphicProps<
-    TDefault extends IntrinsicTag,
-    TOthers extends Exclude<IntrinsicTag, TDefault>,
+    DefaultTag extends IntrinsicTag,
+    OtherTags extends Exclude<IntrinsicTag, DefaultTag> = never,
     OwnProps extends object = {},
-    Excludes extends KeysOfProps<TDefault | TOthers> = never,
+    ExcludedKeys extends KeysOfProps<DefaultTag | OtherTags> = never,
 > =
-    | DefaultAsCase<
-        TDefault,
+    | PolymorphicPropsCase<
+        PropsOf<DefaultTag>,
         OwnProps,
-        Extract<Excludes, keyof PropsOf<TDefault>>
+        { as?: DefaultTag },
+        ExcludedKeys
     >
     | {
-        [K in TOthers]: RequiredAsCase<
-            K,
+        [K in OtherTags]: PolymorphicPropsCase<
+            PropsOf<K>,
             OwnProps,
-            Extract<Excludes, keyof PropsOf<K>>
+            { as: K },
+            ExcludedKeys
         >
-    }[TOthers]
+    }[OtherTags]
 
 export type PolymorphicPropsWithoutRef<
-    TDefault extends IntrinsicTag,
-    TOthers extends Exclude<IntrinsicTag, TDefault>,
+    DefaultTag extends IntrinsicTag,
+    OtherTags extends Exclude<IntrinsicTag, DefaultTag> = never,
     OwnProps extends object = {},
-    Excludes extends KeysOfPropsWithoutRef<TDefault | TOthers> = never,
+    ExcludedKeys extends KeysOfPropsWithoutRef<DefaultTag | OtherTags> = never,
 > =
-    | DefaultAsCaseWithoutRef<
-        TDefault,
+    | PolymorphicPropsCase<
+        PropsOfWithoutRef<DefaultTag>,
         OwnProps,
-        Extract<Excludes, keyof PropsOfWithoutRef<TDefault>>
+        { as?: DefaultTag },
+        ExcludedKeys
     >
     | {
-        [K in TOthers]: RequiredAsCaseWithoutRef<
-            K,
+        [K in OtherTags]: PolymorphicPropsCase<
+            PropsOfWithoutRef<K>,
             OwnProps,
-            Extract<Excludes, keyof PropsOfWithoutRef<K>>
+            { as: K },
+            ExcludedKeys
         >
-    }[TOthers]
+    }[OtherTags]
