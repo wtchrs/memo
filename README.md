@@ -41,6 +41,11 @@ Run backend:
 bun run dev:backend
 ```
 
+### Frontend design
+
+Stitch design guidelines, tokens, screen previews, and exported HTML are kept in
+[docs/design/stitch](docs/design/stitch/README.md).
+
 ### Nix
 
 If you use nix package manager, just enter development shell to get Bun runtime, Postgres, and LSPs:

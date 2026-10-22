@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Second Brain - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#54647a",
+                        "on-error": "#ffffff",
+                        "secondary": "#505f76",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary-fixed-variant": "#7a3003",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "outline": "#777584",
+                        "tertiary-fixed": "#ffdbcc",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "primary": "#1f108e",
+                        "on-primary-container": "#a9a7ff",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#3b35a7",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-tertiary-container": "#fe9562",
+                        "outline-variant": "#c8c4d5",
+                        "surface": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#e2dfff",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#0b1c30",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#c3c0ff",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-fixed": "#351000",
+                        "tertiary": "#511c00",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-background": "#191c1e",
+                        "primary-container": "#3730a3",
+                        "surface-container": "#eceef0",
+                        "surface-bright": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-surface": "#2d3133",
+                        "background": "#f7f9fb",
+                        "secondary-container": "#d0e1fb",
+                        "on-surface-variant": "#464553",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#544fc0",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#752c00",
+                        "on-primary-fixed": "#0f0069",
+                        "surface-container-highest": "#e0e3e5",
+                        "secondary-fixed-dim": "#b7c8e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "max-width-editor": "800px",
+                        "margin-desktop": "32px",
+                        "gutter": "16px",
+                        "sidebar-width": "260px",
+                        "margin-mobile": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .card-shadow {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+        }
+        .card-hover-shadow:hover {
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen">
+<!-- SideNavBar Component from JSON -->
+<nav class="hidden md:flex flex-col h-screen py-margin-desktop space-y-2 bg-surface border-r border-outline-variant fixed left-0 top-0 w-sidebar-width z-50">
+<div class="px-gutter mb-6">
+<div class="flex items-center gap-3">
+<img alt="User Workspace" class="w-10 h-10 rounded-lg object-cover bg-surface-container-high" data-alt="A highly stylized, minimalist icon representing a digital workspace or second brain. The graphic uses a clean white background with sharp, indigo blue geometric forms that suggest memory mapping and organized thought structures. The style is modern, professional, and entirely free of clutter." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYdJgX9jyKx8qCX8NDpmI8gcd_Sos1EqwE3ZiQ5lbiZ3lIt6mnOX7YWvZNGLg3JAHQ1lygC7Aezib0ABZIN0yBC5aclhJwx7QkCaK2905kI6i_AQeeOqKkWz5DwGsvmXs5AgpkyF6A1ngRZgXbzA3p6wfWMcBwJUdrs3uidcMi-u_ZoPmQTeHGqMj6zXkVlejNV4lBerAVcmTKNjPCcCnb0BgTej27j0Mz8ry_p1MQVxsOc2D1owj7pQ"/>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-primary">Second Brain</h1>
+<p class="font-label-md text-label-md text-secondary">Deep Work Mode</p>
+</div>
+</div>
+</div>
+<div class="px-gutter mb-4">
+<button class="w-full bg-primary text-on-primary py-2 px-4 rounded-lg flex items-center justify-center gap-2 hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+<span class="font-label-md text-label-md">New Memo</span>
+</button>
+</div>
+<div class="flex-1 px-unit space-y-1 overflow-y-auto">
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/5 text-primary border-l-2 border-primary hover:bg-surface-container transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="inbox">inbox</span>
+<span class="font-body-lg text-body-lg font-medium">All Memos</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:bg-surface-container-low transition-all duration-200 ease-in-out border-l-2 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+<span class="font-body-lg text-body-lg">Favorites</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:bg-surface-container-low transition-all duration-200 ease-in-out border-l-2 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="sell">sell</span>
+<span class="font-body-lg text-body-lg">Tags</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:bg-surface-container-low transition-all duration-200 ease-in-out border-l-2 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-lg text-body-lg">Settings</span>
+</a>
+</div>
+<div class="px-unit mt-auto pt-4 border-t border-outline-variant/50">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:bg-surface-container-low transition-all duration-200 ease-in-out border-l-2 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="archive">archive</span>
+<span class="font-body-lg text-body-lg">Archive</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-secondary hover:bg-surface-container-low transition-all duration-200 ease-in-out border-l-2 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+<span class="font-body-lg text-body-lg">Trash</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-[260px] min-h-screen bg-background">
+<!-- Mobile TopAppBar (from JSON) -->
+<header class="md:hidden flex justify-between items-center h-16 px-gutter w-full z-40 bg-surface shadow-sm fixed top-0">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Second Brain</h1>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="User profile" class="w-8 h-8 rounded-full object-cover" data-alt="A simple, elegant user avatar placeholder featuring a soft gray background with a minimalist white silhouette. The lighting is completely flat, ensuring it doesn't distract from the primary interface elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT0iqMvUCXAvNsGV9YmSxMWfXLW5VcwIRBTIKUPG3OoLbjm6J9bCH70wD5KmQQusuwgAARGidjyrznUaBL6FSf9lq8IPE4fknkdcKLyQ5NQBbUYx33Flcw5HWiSF3FS0Wa35fLI_NWtGLag6cAaXJIRAiWGxHJEJdtK9DF9QJoZmcI4aLkzWYfp0Km3GCVCsBoAegkCLAKNWXN3h07eXSx6678wqQbr_eEhTfTd4c4_ZaQFwUjT4nKaQ"/>
+</div>
+</header>
+<!-- Desktop Header area (Search & Actions) -->
+<div class="hidden md:flex items-center justify-between px-margin-desktop py-6 max-w-7xl mx-auto w-full sticky top-0 bg-background/80 backdrop-blur-md z-30">
+<div class="relative w-full max-w-md group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg pl-10 pr-12 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none" placeholder="Search memos..." type="text"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 font-label-caps text-label-caps text-outline bg-surface-container-low px-1.5 py-0.5 rounded border border-outline-variant">⌘K</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-secondary hover:bg-surface-container-low rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">view_agenda</span>
+</button>
+<button class="p-2 text-secondary hover:bg-surface-container-low rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">sort</span>
+</button>
+</div>
+</div>
+<!-- Memos Grid Canvas -->
+<div class="px-margin-mobile md:px-margin-desktop py-20 md:py-6 max-w-7xl mx-auto w-full">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-6 md:mb-8 flex items-center gap-2">
+                Recent Thoughts
+                <span class="font-label-md text-label-md text-secondary bg-surface-container px-2 py-0.5 rounded-full">124</span>
+</h2>
+<!-- Masonry-style Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-max">
+<!-- Memo Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 card-shadow card-hover-shadow transition-all duration-200 border border-transparent hover:border-primary/20 flex flex-col group cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface leading-snug">Project Q4 Architecture</h3>
+<button class="text-outline hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">keep</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow">Decided to move from a monolithic structure to microservices for the auth module. Need to review the API gateway configuration before Friday's standup.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-surface-container-low">
+<span class="font-label-md text-label-md text-secondary">Oct 24, 2023</span>
+<div class="flex gap-2">
+<span class="bg-surface-container px-2 py-1 rounded font-label-caps text-label-caps text-on-surface-variant">WORK</span>
+<span class="bg-primary/10 px-2 py-1 rounded font-label-caps text-label-caps text-primary">DEV</span>
+</div>
+</div>
+</div>
+<!-- Memo Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 card-shadow card-hover-shadow transition-all duration-200 border border-transparent hover:border-primary/20 flex flex-col group cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface leading-snug">Meeting Notes: Alpha Launch</h3>
+<button class="text-outline hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">keep</span>
+</button>
+</div>
+<ul class="font-body-md text-body-md text-on-surface-variant mb-4 space-y-2 flex-grow">
+<li class="flex items-start gap-2">
+<div class="w-4 h-4 mt-0.5 rounded-sm border border-outline flex items-center justify-center shrink-0"></div>
+<span>Finalize marketing copy</span>
+</li>
+<li class="flex items-start gap-2 text-outline line-through">
+<div class="w-4 h-4 mt-0.5 rounded-sm bg-primary border-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[12px] text-white">check</span>
+</div>
+<span>Deploy staging environment</span>
+</li>
+</ul>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-surface-container-low">
+<span class="font-label-md text-label-md text-secondary">Oct 23, 2023</span>
+<div class="flex gap-2">
+<span class="bg-surface-container px-2 py-1 rounded font-label-caps text-label-caps text-on-surface-variant">MEETING</span>
+</div>
+</div>
+</div>
+<!-- Memo Card 3 (Image content) -->
+<div class="bg-surface-container-lowest rounded-xl p-5 card-shadow card-hover-shadow transition-all duration-200 border border-transparent hover:border-primary/20 flex flex-col group cursor-pointer row-span-2">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface leading-snug">Moodboard Inspiration</h3>
+<button class="text-outline hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">keep</span>
+</button>
+</div>
+<div class="mb-4 rounded-lg overflow-hidden border border-outline-variant">
+<img alt="Architectural inspiration" class="w-full h-40 object-cover" data-alt="A pristine, minimalist architectural interior shot featuring stark white walls, sharp angular shadows cast by unseen windows, and a solitary concrete pillar. The composition emphasizes high information density through clean lines and negative space, evoking a sense of deep focus and professional clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvwr9RmUE4utyuD39vEtUQ9LND6UcB2gUcBDOG07rH9f5qxj5NQtbDwDGTcbuZzTM4XqmDSf3B_9qHQSz_5CiuIHOdYAq07njqPOrpF_l5tIudQtWvNLHUWqXAwHAR5w55vgwPr4_5Ozz49tQOj0h8rWbpwWo1GaW4Q4uArppOt29YYY3Nh_SdwZLZVMCq9z8fuUyJzAjXAn02qjG4fcWZnnMIf2KNiIonvzNVjf7fU8j2R9uZ7Z7A4A"/>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow">Exploring brutalist influences for the new landing page. The stark contrast and structural honesty align well with our brand values.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-surface-container-low">
+<span class="font-label-md text-label-md text-secondary">Oct 21, 2023</span>
+<div class="flex gap-2">
+<span class="bg-surface-container px-2 py-1 rounded font-label-caps text-label-caps text-on-surface-variant">DESIGN</span>
+<span class="bg-surface-container px-2 py-1 rounded font-label-caps text-label-caps text-on-surface-variant">REF</span>
+</div>
+</div>
+</div>
+<!-- Memo Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 card-shadow card-hover-shadow transition-all duration-200 border border-transparent hover:border-primary/20 flex flex-col group cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface leading-snug">Books to Read (Q4)</h3>
+<button class="text-outline hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">keep</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow">- Thinking, Fast and Slow<br/>- Deep Work<br/>- The Design of Everyday Things<br/>- Atomic Habits</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-surface-container-low">
+<span class="font-label-md text-label-md text-secondary">Oct 20, 2023</span>
+<div class="flex gap-2">
+<span class="bg-surface-container px-2 py-1 rounded font-label-caps text-label-caps text-on-surface-variant">PERSONAL</span>
+</div>
+</div>
+</div>
+<!-- Memo Card 5 -->
+<div class="bg-surface-container-lowest rounded-xl p-5 card-shadow card-hover-shadow transition-all duration-200 border border-transparent hover:border-primary/20 flex flex-col group cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface leading-snug">Quick thought on user flow</h3>
+<button class="text-outline hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">keep</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow">If we reduce the onboarding steps by combining the profile setup with the initial preference selection, we might increase conversion by ~15%.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-surface-container-low">
+<span class="font-label-md text-label-md text-secondary">Oct 19, 2023</span>
+<div class="flex gap-2">
+<span class="bg-surface-container px-2 py-1 rounded font-label-caps text-label-caps text-on-surface-variant">UX</span>
+<span class="bg-surface-container px-2 py-1 rounded font-label-caps text-label-caps text-on-surface-variant">IDEA</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
