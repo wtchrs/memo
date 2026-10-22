@@ -1,0 +1,36 @@
+# Project instructions
+
+## Frontend design
+
+- Use the Stitch references in [docs/design/stitch](docs/design/stitch/README.md)
+  as the source of truth for frontend design.
+- Read [DESIGN.md](docs/design/stitch/cognitive_architecture/DESIGN.md) first.
+  Follow its design rules and tokens when other references conflict with it.
+- Use the screenshots to check layout and visual hierarchy. Use the exported
+  HTML to understand styles and structure.
+- Do not silently combine conflicting values. When references conflict or
+  DESIGN.md is unclear, record the selected values and their reasons in
+  [the design README](docs/design/stitch/README.md).
+- Treat the references as design guidance. Example content, menus, and buttons
+  do not define feature requirements.
+- For states without a reference, follow the design principles and accessibility
+  needs. These states include responsive layouts, keyboard focus, loading,
+  errors, and empty content. Record significant design decisions in the design
+  README.
+- Keep the original Stitch file contents unchanged.
+
+## Documentation
+
+- Write project documentation in English. Apply these rules to this AGENTS.md
+  file as well.
+- Use [ASD-STE100](https://www.asd-ste100.org/) as a writing guide. Strict
+  compliance with its vocabulary and all rules is not required.
+- Write short, clear sentences. Keep one main idea in each sentence.
+- Prefer active voice. Use direct instructions for procedures.
+- Use the same term for the same concept. Keep accurate technical terms.
+- Write for readers who do not know the project history or prior conversations.
+  Explain the current structure, usage, and reasons for decisions.
+- Keep change history in Git. Do not require readers to know an earlier file
+  layout to understand a document.
+- Apply these writing rules to documents you create or edit. Do not rewrite
+  imported source files only to make them follow these rules.
