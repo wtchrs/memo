@@ -30,45 +30,31 @@ content and do not define the application's feature requirements.
 The HTML references load Tailwind, fonts, icons, and some images from external
 URLs. The PNG files preserve the exported appearance without those dependencies.
 
-## Application token decisions
+## Application design decisions
 
-The frontend defines the Stitch palette and scales in
-`apps/frontend/src/styles/tokens.foundation.css`. It maps semantic roles and
-Tailwind color utilities in `tokens.semantic.css`.
+This section records reference conflicts and design choices that DESIGN.md
+does not specify. See the [frontend README](../../../apps/frontend/README.md)
+for token files, Tailwind utilities, and component migration instructions.
 
 - Use the DESIGN.md frontmatter background value, `#f7f9fb`. Its prose and the
   search stylesheet also use `#F8FAFC`. The frontmatter is the explicit token
   definition and agrees with the HTML theme configurations.
-- Use the frontmatter radius scale: `sm: 0.125rem`, `DEFAULT: 0.25rem`,
-  `md: 0.375rem`, `lg: 0.5rem`, `xl: 0.75rem`, and `full: 9999px`.
-  The HTML uses smaller radii. DESIGN.md takes priority over those exports.
-  Use `rounded` for buttons and inputs, `rounded-lg` for cards, and
-  `rounded-full` for tags. Keep this scale when adding shadcn components.
-  Its generated radius formulas and component classes can differ from Stitch.
+- Use the DESIGN.md radius scale. Its `DEFAULT`, `lg`, `xl`, and `full`
+  values are 4px, 8px, 12px, and 9999px. The HTML configurations define
+  these values as 2px, 4px, 8px, and 12px. The screenshots also show
+  rectangular tags and varying button shapes. Follow the DESIGN.md shape
+  rules because they define the intended roles: 4px buttons and inputs,
+  8px cards, and pill-shaped tags.
 - Use the frontmatter spacing unit of 4px. The prose describes an 8px rhythm.
-  An 8px step is two units on this scale. Keep the named layout values from
-  the frontmatter, including the 260px sidebar and 800px editor limit.
-- Use all eight frontmatter typography styles. Keep the existing `text-sm`,
-  `text-base`, and `text-lg` utilities as size and line-height aliases for
-  `body-md`, `body-lg`, and `headline-sm`. Keep `text-heading-sm`,
-  `text-heading-md`, and `text-heading-lg` as aliases for `headline-sm`,
-  `headline-md`, and `display-lg`. The mobile headline has its own utility.
-  Use `font-label-caps` with `text-label-caps` for monospace labels.
-  Register all named text sizes in `customTailwindMerge.ts`. This lets size
-  overrides replace earlier sizes without removing text colors.
-- Load Inter and JetBrains Mono through the shared stylesheet with Google
-  Fonts, as the dashboard export does. Use local fallback fonts while fonts
-  load or if the font service is unavailable.
-- Use shadcn role names for semantic CSS variables and Tailwind utilities.
-  Keep the `ds-palette-*` variables as the original Stitch light palette.
-  Keep `bg`, `fg`, `on-background`, `on-primary`, `on-secondary`, `danger`,
-  and `on-danger` utility names as compatibility aliases.
-- Use the exact level 1 shadow from DESIGN.md. Use the dashboard hover shadow
-  for level 2 because DESIGN.md does not specify its numeric value.
-- Use 38% foreground for disabled content and 12% foreground for disabled
-  filled backgrounds. These state decisions follow Stitch's disabled-state
-  guidance. DESIGN.md provides the base palette but does not define these
-  opacity values.
+  Treat an 8px step as two units. This preserves the named token scale and
+  the layout rhythm without introducing a second spacing scale.
+- Load Inter and JetBrains Mono from Google Fonts, as the dashboard export
+  does. This supplies the specified typefaces without bundled font files.
+  Use local fallback fonts while fonts load or if the service is unavailable.
+- Use the dashboard memo-card hover shadow for level 2. DESIGN.md requires
+  increased depth but does not specify its numeric value. The dashboard
+  provides this treatment for memo cards. Its shadow is stronger than the
+  tag export's active shadow and gives hovered cards a clearer depth change.
 
 ### Semantic color roles
 
@@ -85,30 +71,29 @@ The mappings below preserve Stitch's light theme and visual hierarchy.
 | `accent` / `accent-foreground` | 5% primary mixed with background / `primary` | Interactive highlights follow the navigation treatment in DESIGN.md. |
 | `destructive` / `destructive-foreground` | `error` / `on-error` | Error emphasis and destructive actions. |
 | `border`, `input` | `outline-variant` | Shared borders for surfaces and controls. |
-| `disabled-bg` | `foreground` at 12% opacity | Neutral fill for unavailable filled buttons. |
-| `disabled-fg` | `foreground` at 38% opacity | Reduced emphasis for unavailable text and icons. |
-| `disabled-border` | `border` at 30% opacity | Weak boundary for unavailable inputs. |
 | `ring` | `primary` | Keyboard focus. |
 | `sidebar` roles | Corresponding card, foreground, primary, accent, border, and ring roles | Navigation follows the same hierarchy. |
 
-Use `text-muted-foreground` for supporting text and placeholders. Use
-`bg-muted` for subtle surfaces. Stitch's `secondary` is a slate color, while
-shadcn's `secondary` names a supporting surface. Use the mapped role pair for
-secondary buttons. The original slate color remains in `--ds-palette-secondary`.
-Add chart roles when charts need a palette.
+Stitch's `secondary` is a slate color, while shadcn's `secondary` names a
+supporting surface. Map the surface and its foreground separately so secondary
+buttons retain a light fill and slate text. The source palette remains separate
+from these component roles.
 
-Disabled filled buttons use `disabled-bg` and `disabled-fg`, a transparent
-border, and no shadow. Disabled inputs use `surface-container-low` as their
-background, `disabled-fg` for values and placeholders, and `disabled-border`
-for their boundary. This keeps disabled controls distinct from secondary
-buttons, which retain their full slate text color, border, and shadow.
+### Disabled controls
 
-Define the opacity in each color token by mixing with transparent in sRGB.
-The theme's `foreground` role matches Stitch's `on-surface` in light mode and
-uses the preview foreground in dark mode. The translucent colors blend with
-the surface underneath them. Keep these aliases at each theme boundary so
-they resolve the local colors. Do not reduce the whole control's opacity as
-well. Replace shadcn's default disabled opacity classes with these styles.
+DESIGN.md does not define disabled states. Use `on-surface` at 38% opacity
+for disabled text and icons. Use it at 12% opacity for disabled filled-button
+backgrounds, with a transparent border and no shadow. These choices reduce
+emphasis and remove the raised appearance of available actions.
+
+Use `surface-container-low` for disabled input backgrounds and
+`outline-variant` at 30% opacity for their borders. The solid background
+preserves the field shape. The weaker border distinguishes the field from
+available inputs. Secondary buttons retain their full slate text color,
+border, and shadow, so they remain distinct from disabled controls.
+
+Apply opacity to individual colors. This keeps the background, content, and
+border independently controlled as their colors blend with the surface below.
 
 Keep disabled state separate from muted emphasis. Muted content includes
 readable descriptions and placeholders in available controls. Disabled colors
@@ -125,11 +110,6 @@ These changes keep the control's dimensions unchanged.
 
 Show the ring on `focus-visible` when suppressing the browser outline. Use
 the same ring width and offset when adding shadcn components.
-
-When initializing shadcn, use `src/styles/tailwind.css` as its CSS entry and
-enable `tailwind.cssVariables`. Reconcile generated defaults with these roles.
-Its `cn()` helper must use the configured merge function from
-`src/utils/customTailwindMerge.ts` to preserve the named typography styles.
 
 ### Dark theme
 
