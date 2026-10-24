@@ -10,7 +10,7 @@ const TextVariants = cva([
             default: ['text-fg'],
             brand: ['text-primary'],
             danger: ['text-danger'],
-            muted: ['text-muted'],
+            muted: ['text-muted-foreground'],
         },
 
         size: {

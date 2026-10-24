@@ -1,65 +1,162 @@
-/* semantic tokens */
-:root {
-  --ds-bg: var(--ds-palette-neutral-50);
-  --ds-fg: var(--ds-palette-neutral-950);
+/* Repeat aliases at a scoped theme boundary so they use its local values. */
+:root, .dark {
+  --background: var(--ds-palette-background);
+  --foreground: var(--ds-palette-on-background);
 
-  /* roles */
-  --ds-border: color-mix(in oklab, var(--ds-fg) 18%, var(--ds-bg));
-  --ds-muted:  color-mix(in oklab, var(--ds-fg) 55%, var(--ds-bg));
+  --surface: var(--ds-palette-surface);
+  --surface-dim: var(--ds-palette-surface-dim);
+  --surface-bright: var(--ds-palette-surface-bright);
+  --surface-container-lowest: var(--ds-palette-surface-container-lowest);
+  --surface-container-low: var(--ds-palette-surface-container-low);
+  --surface-container: var(--ds-palette-surface-container);
+  --surface-container-high: var(--ds-palette-surface-container-high);
+  --surface-container-highest: var(--ds-palette-surface-container-highest);
 
-  /* intents */
-  --ds-primary: var(--ds-palette-brand-500);
-  --ds-danger:  var(--ds-palette-red-600);
+  --card: var(--surface-container-lowest);
+  --card-foreground: var(--foreground);
+  --popover: var(--surface-container-lowest);
+  --popover-foreground: var(--foreground);
 
-  /* on-colors (text/icon colors on intent colors) */
-  /* reuse bg to automatically adjust light/dark */
-  --ds-on-primary: var(--ds-bg);
-  --ds-on-danger:  var(--ds-bg);
+  --primary: var(--ds-palette-primary);
+  --primary-foreground: var(--ds-palette-on-primary);
+  --secondary: var(--surface-container);
+  --secondary-foreground: var(--ds-palette-secondary);
+  --muted: var(--surface-container-low);
+  --muted-foreground: var(--ds-palette-on-surface-variant);
+  --accent: color-mix(in oklab, var(--primary) 5%, var(--background));
+  --accent-foreground: var(--primary);
+  --destructive: var(--ds-palette-error);
+  --destructive-foreground: var(--ds-palette-on-error);
 
-  /* secondary: feels like "slightly floating surface" by mixing bg and fg */
-  --ds-secondary:    color-mix(in oklab, var(--ds-bg) 92%, var(--ds-fg));
-  --ds-on-secondary: var(--ds-fg);
+  --border: var(--ds-palette-outline-variant);
+  --input: var(--border);
+  --ring: var(--primary);
+  --outline: var(--ds-palette-outline);
 
-  /* states */
-  --ds-disabled-bg:     color-mix(in oklab, var(--ds-bg) 90%, var(--ds-fg));
-  --ds-disabled-fg:     color-mix(in oklab, var(--ds-fg) 40%, var(--ds-bg));
-  --ds-disabled-border: color-mix(in oklab, var(--ds-fg) 12%, var(--ds-bg));
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
 
-  /* focus ring */
-  --ds-ring: var(--ds-primary);
+  --ds-disabled-bg: color-mix(in srgb, var(--foreground) 12%, transparent);
+  --ds-disabled-fg: color-mix(in srgb, var(--foreground) 38%, transparent);
+  --ds-disabled-border: color-mix(in srgb, var(--border) 30%, transparent);
 }
 
-/* dark theme (class toggle or data-attribute toggle) */
-html.dark {
-  --ds-bg: var(--ds-palette-neutral-950);
-  --ds-fg: var(--ds-palette-neutral-50);
+/* Stitch defines only light colors. Derive dark surfaces from the preview base. */
+.dark {
+  --background: var(--color-slate-950);
+  --foreground: var(--color-slate-50);
 
-  --ds-primary: var(--ds-palette-brand-100);
-  --ds-danger:  var(--ds-palette-red-300);
+  --surface: var(--background);
+  --surface-dim: var(--background);
+  --surface-bright: var(--surface-container-highest);
+  --surface-container-lowest: color-mix(in oklab, var(--background) 97%, var(--foreground));
+  --surface-container-low: color-mix(in oklab, var(--background) 94%, var(--foreground));
+  --surface-container: color-mix(in oklab, var(--background) 90%, var(--foreground));
+  --surface-container-high: color-mix(in oklab, var(--background) 86%, var(--foreground));
+  --surface-container-highest: color-mix(in oklab, var(--background) 82%, var(--foreground));
 
-  --ds-secondary: color-mix(in oklab, var(--ds-bg) 80%, var(--ds-fg));
+  --primary: var(--color-indigo-100);
+  --primary-foreground: var(--background);
+  --secondary: color-mix(in oklab, var(--background) 80%, var(--foreground));
+  --secondary-foreground: var(--foreground);
+  --muted-foreground: color-mix(in oklab, var(--foreground) 55%, var(--background));
+  --accent: color-mix(in oklab, var(--primary) 10%, var(--background));
+  --destructive: var(--color-red-300);
+  --destructive-foreground: var(--background);
+
+  --border: color-mix(in oklab, var(--foreground) 18%, var(--background));
+  --outline: color-mix(in oklab, var(--foreground) 55%, var(--background));
 }
 
 /* expose as Tailwind class */
 @theme inline {
-  --color-bg: var(--ds-bg);
-  --color-fg: var(--ds-fg);
+  --color-surface: var(--surface);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-on-surface: var(--foreground);
+  --color-on-surface-variant: var(--muted-foreground);
+  --color-inverse-surface: var(--ds-palette-inverse-surface);
+  --color-inverse-on-surface: var(--ds-palette-inverse-on-surface);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--border);
+  --color-surface-tint: var(--ds-palette-surface-tint);
+  --color-primary-container: var(--ds-palette-primary-container);
+  --color-on-primary-container: var(--ds-palette-on-primary-container);
+  --color-inverse-primary: var(--ds-palette-inverse-primary);
+  --color-secondary-container: var(--ds-palette-secondary-container);
+  --color-on-secondary-container: var(--ds-palette-on-secondary-container);
+  --color-tertiary: var(--ds-palette-tertiary);
+  --color-on-tertiary: var(--ds-palette-on-tertiary);
+  --color-tertiary-container: var(--ds-palette-tertiary-container);
+  --color-on-tertiary-container: var(--ds-palette-on-tertiary-container);
+  --color-error: var(--destructive);
+  --color-on-error: var(--destructive-foreground);
+  --color-error-container: var(--ds-palette-error-container);
+  --color-on-error-container: var(--ds-palette-on-error-container);
+  --color-primary-fixed: var(--ds-palette-primary-fixed);
+  --color-primary-fixed-dim: var(--ds-palette-primary-fixed-dim);
+  --color-on-primary-fixed: var(--ds-palette-on-primary-fixed);
+  --color-on-primary-fixed-variant: var(--ds-palette-on-primary-fixed-variant);
+  --color-secondary-fixed: var(--ds-palette-secondary-fixed);
+  --color-secondary-fixed-dim: var(--ds-palette-secondary-fixed-dim);
+  --color-on-secondary-fixed: var(--ds-palette-on-secondary-fixed);
+  --color-on-secondary-fixed-variant: var(--ds-palette-on-secondary-fixed-variant);
+  --color-tertiary-fixed: var(--ds-palette-tertiary-fixed);
+  --color-tertiary-fixed-dim: var(--ds-palette-tertiary-fixed-dim);
+  --color-on-tertiary-fixed: var(--ds-palette-on-tertiary-fixed);
+  --color-on-tertiary-fixed-variant: var(--ds-palette-on-tertiary-fixed-variant);
+  --color-surface-variant: var(--surface-container-highest);
 
-  --color-border: var(--ds-border);
-  --color-muted: var(--ds-muted);
+  /* shadcn semantic roles */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 
-  --color-primary: var(--ds-primary);
-  --color-on-primary: var(--ds-on-primary);
-
-  --color-secondary: var(--ds-secondary);
-  --color-on-secondary: var(--ds-on-secondary);
-
-  --color-danger: var(--ds-danger);
-  --color-on-danger: var(--ds-on-danger);
+  /* Compatibility aliases for the existing primitives. */
+  --color-bg: var(--background);
+  --color-fg: var(--foreground);
+  --color-on-background: var(--foreground);
+  --color-on-primary: var(--primary-foreground);
+  --color-on-secondary: var(--secondary-foreground);
+  --color-danger: var(--destructive);
+  --color-on-danger: var(--destructive-foreground);
 
   --color-disabled-bg: var(--ds-disabled-bg);
   --color-disabled-fg: var(--ds-disabled-fg);
   --color-disabled-border: var(--ds-disabled-border);
-
-  --color-ring: var(--ds-ring);
 }

@@ -3,8 +3,19 @@ import { extendTailwindMerge } from "tailwind-merge";
 export const twMerge = extendTailwindMerge({
     extend: {
         theme: {
-            // --text-heading-sm / md / lg
-            text: ['heading-sm', 'heading-md', 'heading-lg'],
+            text: [
+                'display-lg',
+                'headline-md',
+                'headline-sm',
+                'body-lg',
+                'body-md',
+                'label-caps',
+                'label-md',
+                'headline-lg-mobile',
+                'heading-sm',
+                'heading-md',
+                'heading-lg',
+            ],
 
             // --shadow-elev-1 / elev-2
             shadow: ['elev-1', 'elev-2'],

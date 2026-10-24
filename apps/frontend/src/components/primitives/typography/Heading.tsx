@@ -10,7 +10,7 @@ const HeadingVariants = cva([
             brand: ['text-primary'],
             default: ['text-fg'],
             danger: ['text-danger'],
-            muted: ['text-muted'],
+            muted: ['text-muted-foreground'],
         },
         size: {
             sm: ['text-heading-sm'],

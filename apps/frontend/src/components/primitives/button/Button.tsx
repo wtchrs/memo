@@ -5,7 +5,7 @@ import { twMerge } from "@/utils/customTailwindMerge"
 const buttonVariants = cva([
     'inline-flex items-center justify-center gap-2',
     'select-none whitespace-nowrap',
-    'rounded-md',
+    'rounded',
     'font-sans font-semibold',
     'transition-colors',
     'shadow-elev-1',
@@ -13,29 +13,29 @@ const buttonVariants = cva([
 
     // focus
     'focus-visible:outline-none',
-    'focus-visible:ring-2 focus-visible:ring-ring',
-    'focus-visible:ring-offset-2 focus-visible:ring-offset-bg',
+    'focus-visible:ring-1 focus-visible:ring-ring',
+    'focus-visible:ring-offset-1 focus-visible:ring-offset-bg',
 
     // disabled
     'disabled:pointer-events-none',
     'disabled:cursor-not-allowed',
     'disabled:bg-disabled-bg',
     'disabled:text-disabled-fg',
-    'disabled:border-disabled-border',
+    'disabled:border-transparent',
     'disabled:shadow-none',
 ], {
     variants: {
         variant: {
             primary: [
-                'bg-primary text-on-primary border-transparent',
+                'bg-primary text-primary-foreground border-transparent',
                 'hover:bg-primary/90 active:bg-primary/80',
             ],
             secondary: [
-                'bg-secondary text-on-secondary border-border',
+                'bg-secondary text-secondary-foreground border-border',
                 'hover:bg-secondary/90 active:bg-secondary/80',
             ],
             danger: [
-                'bg-danger text-on-danger border-transparent',
+                'bg-danger text-destructive-foreground border-transparent',
                 'hover:bg-danger/90 active:bg-danger/80',
             ],
         },

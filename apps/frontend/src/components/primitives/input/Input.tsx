@@ -4,16 +4,16 @@ import { cva } from "class-variance-authority"
 
 const inputVariants = cva([
     'block w-full min-w-0',
-    'rounded-md border',
-    'bg-bg text-fg border-border',
+    'rounded border',
+    'bg-background text-foreground border-input',
     'font-sans font-regular',
     'transition-colors',
-    'placeholder:text-muted',
+    'placeholder:text-muted-foreground',
 
     // focus
     'focus-visible:outline-none',
-    'focus-visible:ring-2 focus-visible:ring-ring',
-    'focus-visible:ring-offset-2 focus-visible:ring-offset-bg',
+    'focus-visible:ring-1 focus-visible:ring-ring',
+    'focus-visible:ring-offset-1 focus-visible:ring-offset-bg',
 
     // invalid
     'enabled:aria-invalid:border-danger',
@@ -25,7 +25,7 @@ const inputVariants = cva([
 
     // disabled
     'disabled:cursor-not-allowed',
-    'disabled:bg-disabled-bg',
+    'disabled:bg-surface-container-low',
     'disabled:text-disabled-fg',
     'disabled:border-disabled-border',
     'disabled:placeholder:text-disabled-fg',
