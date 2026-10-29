@@ -5,27 +5,33 @@ from Stitch as implementation references for the Second Brain web client.
 
 ## Contents
 
-- [DESIGN.md](cognitive_architecture/DESIGN.md): design principles and YAML
-  frontmatter containing color, typography, radius, and spacing tokens. There is
-  no separate token file in this export.
-- Dashboard: [screenshot](dashboard/screen.png) and
-  [HTML](dashboard/code.html).
-- Memo editor: [screenshot](editor/screen.png) and
-  [HTML](editor/code.html).
-- Search results: [screenshot](search/screen.png) and
-  [HTML](search/code.html).
-- Tags: [screenshot](tag/screen.png) and
-  [HTML](tag/code.html).
+- [Light DESIGN.md](cognitive_architecture/DESIGN.md): shared design principles
+  and light theme tokens.
+- [Dark DESIGN.md](cognitive_architecture/dark/DESIGN.md): dark theme tokens,
+  component styles, and additional typography and spacing definitions.
 
-All four screenshots are 1600 × 1280 pixels.
+Both documents contain tokens in YAML frontmatter. There is no separate token
+file in these exports.
+
+| Screen | Light references | Dark references |
+| --- | --- | --- |
+| Dashboard | [Screenshot](dashboard/screen.png), [HTML](dashboard/code.html) | [Screenshot](dashboard/dark/screen.png), [HTML](dashboard/dark/code.html) |
+| Memo editor | [Screenshot](editor/screen.png), [HTML](editor/code.html) | [Screenshot](editor/dark/screen.png), [HTML](editor/dark/code.html) |
+| Search results | [Screenshot](search/screen.png), [HTML](search/code.html) | [Screenshot](search/dark/screen.png), [HTML](search/dark/code.html) |
+| Tags | [Screenshot](tag/screen.png), [HTML](tag/code.html) | [Screenshot](tag/dark/screen.png), [HTML](tag/dark/code.html) |
+
+All eight screenshots are 1600 × 1280 pixels.
 
 ## Using the references
 
-Read DESIGN.md for design intent and token values, compare screenshots for
-layout and visual hierarchy, and consult the HTML for concrete styles and
-structure. Translate these references into the existing React/Tailwind frontend
-and shadcn components. The HTML files are static prototypes with placeholder
-content and do not define the application's feature requirements.
+Read the light DESIGN.md for shared rules and light theme values. Read the dark
+DESIGN.md for dark theme colors and styles. Each design document takes priority
+over its screen references. Compare screenshots for layout and visual hierarchy.
+Consult the HTML for concrete styles and structure.
+
+Translate these references into the existing React/Tailwind frontend and shadcn
+components. The HTML files are static prototypes with placeholder content and
+do not define the application's feature requirements.
 
 The HTML references load Tailwind, fonts, icons, and some images from external
 URLs. The PNG files preserve the exported appearance without those dependencies.
@@ -111,15 +117,35 @@ These changes keep the control's dimensions unchanged.
 Show the ring on `focus-visible` when suppressing the browser outline. Use
 the same ring width and offset when adding shadcn components.
 
-### Dark theme
+### Dark theme references
 
-Stitch does not define a dark palette. Keep the existing slate canvas, light
-text, pale indigo primary, and pale red error colors as the dark preview base.
-Derive the surface levels by mixing the canvas with 3%, 6%, 10%, 14%, and 18%
-foreground, from `surface-container-lowest` through `surface-container-highest`.
-Use the canvas for `surface` and `surface-dim`. Use the highest container for
-`surface-bright`. Keep the existing 20% foreground mix for secondary actions.
-Use a 10% primary mix for accent backgrounds in the dark theme.
+The [dark DESIGN.md](cognitive_architecture/dark/DESIGN.md) supplies the dark
+palette and component treatments. It contains two color sets that differ:
+
+| Role | Unprefixed token | Explicit dark token |
+| --- | --- | --- |
+| Canvas | `surface: #0b1326` | `dark-surface: #0f172a` |
+| Main text | `on-surface: #dae2fd` | `dark-on-surface: #f8fafc` |
+| Primary | `primary: #bdc2ff` | `dark-primary: #818cf8` |
+
+The document's prose uses the explicit `dark-*` set. The editor and search
+HTML use the unprefixed primary value. The dashboard and tag HTML override it
+with `#818cf8`. The HTML also retains the smaller radius scale described above.
+
+The dark document defines `label-caps` at 11px with 0.06em letter spacing.
+The light document defines it at 12px with 0.05em letter spacing. Check these
+differences when mapping the dark references to application tokens. Record
+the selected values and their reasons here.
+
+### Current dark preview
+
+The frontend still uses a fallback dark palette. It has not been mapped to the
+Stitch dark references. The preview uses a slate canvas, light text, pale indigo
+primary, and pale red error colors. Surface levels mix the canvas with 3%, 6%,
+10%, 14%, and 18% foreground, from `surface-container-lowest` through
+`surface-container-highest`. The canvas supplies `surface` and `surface-dim`.
+The highest container supplies `surface-bright`. Secondary actions use a 20%
+foreground mix. Accent backgrounds use a 10% primary mix.
 
 Toggle `.dark` on the document or a preview container. Both semantic variables
 and Tailwind `dark:` utilities follow this class. Define role aliases at each
@@ -128,10 +154,3 @@ their text colors, and outline utilities follow the active theme. The remaining
 utilities for primary, secondary, and error containers, inverse colors, fixed
 colors, and tertiary colors expose light palette values. Use the semantic roles
 for components that must change theme.
-
-## Version control
-
-Track DESIGN.md, HTML, PNG, and this README in Git so design references can be
-reviewed alongside implementation changes. This export is approximately 1.1 MB;
-Git LFS is unnecessary at this size. Keep future exports limited to the screens
-used as design references rather than accumulating every generated variant.

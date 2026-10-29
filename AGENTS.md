@@ -4,12 +4,14 @@
 
 - Use the Stitch references in [docs/design/stitch](docs/design/stitch/README.md)
   as the source of truth for frontend design.
-- Read [DESIGN.md](docs/design/stitch/cognitive_architecture/DESIGN.md) first.
-  Follow its design rules and tokens when other references conflict with it.
+- Read [DESIGN.md](docs/design/stitch/cognitive_architecture/DESIGN.md) first
+  for shared design rules and the light theme. For dark theme colors and styles,
+  read the [dark DESIGN.md](docs/design/stitch/cognitive_architecture/dark/DESIGN.md).
+  Follow each theme's design document when its screen references conflict with it.
 - Use the screenshots to check layout and visual hierarchy. Use the exported
   HTML to understand styles and structure.
 - Do not silently combine conflicting values. When references conflict or
-  DESIGN.md is unclear, record the selected values and their reasons in
+  a design document is unclear, record the selected values and their reasons in
   [the design README](docs/design/stitch/README.md).
 - Treat the references as design guidance. Example content, menus, and buttons
   do not define feature requirements.

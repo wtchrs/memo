@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="h-full dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Second Brain - Tags</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "error": "#ffb4ab",
+          "inverse-primary": "#4953bc",
+          "surface-container-high": "#222a3d",
+          "on-primary-fixed-variant": "#2f3aa3",
+          "light-primary": "#3730a3",
+          "secondary-container": "#39485a",
+          "dark-surface-dim": "#0b1120",
+          "secondary": "#94a3b8",
+          "light-on-surface": "#191c1e",
+          "light-outline-variant": "#c8c4d5",
+          "dark-outline": "#334155",
+          "on-tertiary": "#00354a",
+          "light-primary-container": "#e0e7ff",
+          "on-surface": "#dae2fd",
+          "dark-primary-container": "#3730a3",
+          "dark-surface-container-low": "#131d31",
+          "light-surface-container-high": "#e6e8ea",
+          "error-container": "#93000a",
+          "dark-surface-container-lowest": "#070d19",
+          "surface-container-highest": "#2d3449",
+          "primary-fixed-dim": "#bdc2ff",
+          "primary": "#818cf8",
+          "outline-variant": "#334155",
+          "dark-surface-container-high": "#334155",
+          "tertiary-fixed": "#c4e7ff",
+          "light-on-primary": "#ffffff",
+          "surface-variant": "#2d3449",
+          "dark-secondary": "#94a3b8",
+          "surface-container-low": "#131b2e",
+          "dark-secondary-container": "#1e293b",
+          "tertiary-fixed-dim": "#7bd0ff",
+          "on-primary": "#0f172a",
+          "dark-surface-bright": "#1e293b",
+          "surface-dim": "#0b1326",
+          "dark-on-primary-container": "#e0e7ff",
+          "on-tertiary-fixed-variant": "#004c69",
+          "light-surface": "#f7f9fb",
+          "on-secondary-fixed": "#0d1c2d",
+          "secondary-fixed-dim": "#b9c8de",
+          "on-tertiary-container": "#003246",
+          "light-surface-container-lowest": "#ffffff",
+          "on-tertiary-fixed": "#001e2c",
+          "primary-container": "#3730a3",
+          "dark-on-secondary": "#0f172a",
+          "light-on-surface-variant": "#464553",
+          "dark-on-primary": "#0f172a",
+          "on-background": "#dae2fd",
+          "dark-code-bg": "#090d16",
+          "secondary-fixed": "#d4e4fa",
+          "tertiary-container": "#00a0d7",
+          "dark-primary": "#818cf8",
+          "surface-tint": "#bdc2ff",
+          "surface-container": "#171f33",
+          "dark-surface-container": "#1e293b",
+          "tertiary": "#7bd0ff",
+          "light-outline": "#777584",
+          "light-surface-container": "#eceef0",
+          "dark-on-surface": "#f8fafc",
+          "on-secondary-fixed-variant": "#39485a",
+          "dark-surface-container-highest": "#475569",
+          "on-error-container": "#ffdad6",
+          "on-error": "#690005",
+          "surface": "#0b1326",
+          "inverse-surface": "#dae2fd",
+          "on-surface-variant": "#94a3b8",
+          "dark-selection": "#312e81",
+          "on-secondary-container": "#a7b6cc",
+          "dark-on-surface-variant": "#94a3b8",
+          "surface-container-lowest": "#060e20",
+          "dark-surface": "#0f172a",
+          "outline": "#475569",
+          "dark-outline-variant": "#1e293b",
+          "on-primary-container": "#e0e7ff",
+          "on-secondary": "#233143",
+          "surface-bright": "#31394d",
+          "background": "#0b1326",
+          "primary-fixed": "#e0e0ff",
+          "on-primary-fixed": "#000767",
+          "inverse-on-surface": "#283044"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "margin": "1rem",
+          "space-xs": "0.25rem",
+          "space-2xl": "3rem",
+          "space-xl": "2rem",
+          "gutter-lg": "1.5rem",
+          "space-md": "1rem",
+          "margin-desktop": "32px",
+          "space-sm": "0.5rem",
+          "space-lg": "1.5rem",
+          "gutter": "16px",
+          "margin-tablet": "1.5rem",
+          "sidebar-width": "260px",
+          "max-width-editor": "800px"
+        },
+        "fontFamily": {
+          "label-md": ["Inter"],
+          "body-md": ["Inter"],
+          "body-sm": ["Inter"],
+          "body-lg": ["Inter"],
+          "label-caps": ["JetBrains Mono"],
+          "headline-md": ["Inter"],
+          "headline-sm": ["Inter"],
+          "code-inline": ["JetBrains Mono"],
+          "code-block": ["JetBrains Mono"],
+          "headline-lg-mobile": ["Inter"],
+          "display-lg": ["Inter"]
+        },
+        "fontSize": {
+          "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+          "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+          "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+          "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+          "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "500" }],
+          "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+          "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+          "code-inline": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+          "code-block": ["13px", { "lineHeight": "22px", "fontWeight": "400" }],
+          "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+          "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+        }
+      },
+    },
+  }
+</script>
+<style>
+        .shadow-soft {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+        }
+        .shadow-active {
+            box-shadow: 0 4px 12px -1px rgba(0,0,0,0.4), 0 2px 6px -1px rgba(0,0,0,0.25);
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background h-full font-body-md antialiased flex selection:bg-dark-selection selection:text-white">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden bg-surface-container-lowest border-b border-outline-variant/30 shadow-sm fixed top-0 w-full z-40">
+<div class="flex justify-between items-center h-16 px-gutter w-full z-40">
+<div class="flex items-center">
+<span class="material-symbols-outlined mr-2 text-on-surface" data-icon="menu">menu</span>
+<span class="text-headline-md font-headline-md font-bold text-primary">Second Brain</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary" data-icon="search">search</span>
+<img alt="User profile" class="w-8 h-8 rounded-full object-cover border border-outline-variant/40" data-alt="A small circular profile picture of a professional individual in a minimalist, light-mode setting. The portrait is crisp, with subtle, diffused lighting emphasizing a clean, modern aesthetic. Deep blacks and pristine whites in the clothing contrast with the soft grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQbg5wdh-JAauSfk2aB0FKuSXLk5R90X0Ei74rBRtx0ya9ALi6P8l_jepPjYoVXEI9WjCgZMHCEMm5IMkgKMkiIE_TEsOyZlpH8a3e6WwwgTTszH4pBrunxbiSwcyAKrE7PmiMEietTIVulSikxX0C2kVpUFG4Ox1slBFM_PUvsRTMdi-Cyze6PUNFvrA1MRxcCWxyvDb4oRvtaKfZw6GyhdLw-3u4RvqFPiJN4Sa0jWQ7AtwFDDu4hg"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex bg-surface-container-lowest border-r border-outline-variant/40 fixed left-0 top-0 h-screen w-sidebar-width flex-col h-full py-margin-desktop space-y-2 flat no shadows z-30">
+<div class="px-gutter mb-6">
+<div class="flex items-center space-x-3 mb-8">
+<img alt="User Workspace" class="w-10 h-10 rounded-lg object-cover ring-1 ring-outline-variant/40" data-alt="A minimalist logo or abstract representation of a workspace, featuring sharp geometric lines and a high-contrast black and white palette with a touch of indigo. The design is sleek, modern, and conveys a sense of organized, professional thought." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdfUdRwYJSf_xXfzwNl4V2AYTnKcu26ePQtiCNgQlo3FrTVwdNrt2OKUCv4-uylDQ8UddF5zYj6GxswS-3NV_2jcW128QBxUQeD9S8-WKvglDLNWWK2YHxqiUVHgsag3EK_BRuEW3MNPHDLx4JU5wIYY3g8hrHAHTfU8pLhvKqcrjILE69EgjxrM-sYftYGU5m4WU0BlpnVBS7Ifj6_W86TFqzdxM0wGM8d8clvClPL3og8hqvqQriFg"/>
+<div>
+<div class="font-headline-sm text-headline-sm font-black text-on-surface">Second Brain</div>
+<div class="font-label-md text-label-md text-secondary">Deep Work Mode</div>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-on-primary font-semibold text-label-md py-2 px-4 rounded-full flex items-center justify-center space-x-2 transition-colors duration-200 ease-in-out shadow-soft">
+<span class="material-symbols-outlined text-[18px] text-on-primary" data-icon="add">add</span>
+<span>New Memo</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto px-2 space-y-1">
+<!-- All Memos -->
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low duration-200 ease-in-out font-label-md text-label-md font-body-lg text-body-lg" href="#">
+<span class="material-symbols-outlined" data-icon="inbox">inbox</span>
+<span>All Memos</span>
+</a>
+<!-- Favorites -->
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low duration-200 ease-in-out font-label-md text-label-md font-body-lg text-body-lg" href="#">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+<span>Favorites</span>
+</a>
+<!-- Tags (Active) -->
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-primary/10 text-primary border-l-2 border-primary duration-200 ease-in-out font-label-md text-label-md font-body-lg text-body-lg" href="#">
+<span class="material-symbols-outlined text-primary" data-icon="sell" style="font-variation-settings: 'FILL' 1;">sell</span>
+<span class="font-medium text-primary">Tags</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low duration-200 ease-in-out font-label-md text-label-md font-body-lg text-body-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</div>
+<div class="px-2 mt-auto space-y-1 border-t border-outline-variant/30 pt-4">
+<!-- Archive -->
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low duration-200 ease-in-out font-label-md text-label-md font-body-lg text-body-lg" href="#">
+<span class="material-symbols-outlined" data-icon="archive">archive</span>
+<span>Archive</span>
+</a>
+<!-- Trash -->
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low duration-200 ease-in-out font-label-md text-label-md font-body-lg text-body-lg" href="#">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+<span>Trash</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-sidebar-width pt-16 md:pt-0 h-screen overflow-hidden flex flex-col bg-background">
+<!-- Tags Header & Search -->
+<div class="px-margin-desktop py-8 border-b border-outline-variant/30 bg-surface z-10">
+<div class="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Tags</h1>
+<p class="font-body-md text-body-md text-secondary">Manage and organize your knowledge graph.</p>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto">
+<div class="relative w-full md:w-64 group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant/50 rounded-lg font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-soft" placeholder="Search tags..." type="text"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-secondary font-label-md text-label-md hidden md:block border border-outline-variant/50 rounded px-1 text-[10px] bg-surface-container">⌘K</span>
+</div>
+<button class="bg-surface-container-lowest border border-outline-variant/50 p-2 rounded-lg text-secondary hover:bg-surface-container hover:text-primary transition-colors shadow-soft whitespace-nowrap flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Layout Container for Tags and Memo Preview -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Tags Cloud / List (Bento-ish Grid) -->
+<div class="w-full lg:w-1/2 xl:w-2/5 p-margin-desktop overflow-y-auto bg-surface-container-low border-r border-outline-variant/30">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Active Tags</h2>
+<div class="flex gap-2">
+<button class="p-1 rounded text-primary bg-primary/10 border border-primary/20"><span class="material-symbols-outlined text-[18px]" data-icon="grid_view">grid_view</span></button>
+<button class="p-1 rounded text-secondary hover:bg-surface-container hover:text-on-surface"><span class="material-symbols-outlined text-[18px]" data-icon="view_list">view_list</span></button>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<!-- Tag Item - Active/Selected -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border-2 border-primary shadow-active cursor-pointer relative overflow-hidden group">
+<div class="absolute inset-0 bg-primary/10"></div>
+<div class="relative z-10 flex flex-col h-full justify-between gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="sell" style="font-variation-settings: 'FILL' 1;">sell</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-1 truncate">#design-system</h3>
+<p class="font-label-md text-label-md text-secondary">24 Memos</p>
+</div>
+</div>
+</div>
+<!-- Tag Item -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/40 shadow-soft hover:shadow-active hover:border-primary/50 transition-all cursor-pointer flex flex-col h-full justify-between gap-3 group">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors" data-icon="sell">sell</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 truncate">#architecture</h3>
+<p class="font-label-md text-label-md text-secondary">12 Memos</p>
+</div>
+</div>
+<!-- Tag Item -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/40 shadow-soft hover:shadow-active hover:border-primary/50 transition-all cursor-pointer flex flex-col h-full justify-between gap-3 group">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors" data-icon="sell">sell</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 truncate">#q3-planning</h3>
+<p class="font-label-md text-label-md text-secondary">8 Memos</p>
+</div>
+</div>
+<!-- Tag Item -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/40 shadow-soft hover:shadow-active hover:border-primary/50 transition-all cursor-pointer flex flex-col h-full justify-between gap-3 group">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors" data-icon="sell">sell</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 truncate">#react</h3>
+<p class="font-label-md text-label-md text-secondary">45 Memos</p>
+</div>
+</div>
+<!-- Tag Item -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/40 shadow-soft hover:shadow-active hover:border-primary/50 transition-all cursor-pointer flex flex-col h-full justify-between gap-3 group">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors" data-icon="sell">sell</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 truncate">#ideas</h3>
+<p class="font-label-md text-label-md text-secondary">102 Memos</p>
+</div>
+</div>
+<!-- Tag Item -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/40 shadow-soft hover:shadow-active hover:border-primary/50 transition-all cursor-pointer flex flex-col h-full justify-between gap-3 group">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors" data-icon="sell">sell</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 truncate">#meetings</h3>
+<p class="font-label-md text-label-md text-secondary">5 Memos</p>
+</div>
+</div>
+<!-- Tag Item (Small) -->
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/40 shadow-soft hover:bg-surface-container hover:border-primary/40 transition-colors cursor-pointer flex items-center gap-2 col-span-2 sm:col-span-1">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="sell">sell</span>
+<h3 class="font-label-md text-label-md text-on-surface truncate flex-1">#snippets</h3>
+<span class="font-label-caps text-label-caps text-secondary bg-surface-container-high px-2 py-0.5 rounded border border-outline-variant/30">3</span>
+</div>
+<!-- Tag Item (Small) -->
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/40 shadow-soft hover:bg-surface-container hover:border-primary/40 transition-colors cursor-pointer flex items-center gap-2 col-span-2 sm:col-span-1">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="sell">sell</span>
+<h3 class="font-label-md text-label-md text-on-surface truncate flex-1">#todo</h3>
+<span class="font-label-caps text-label-caps text-secondary bg-surface-container-high px-2 py-0.5 rounded border border-outline-variant/30">14</span>
+</div>
+</div>
+</div>
+<!-- Memos List for Selected Tag (Desktop) -->
+<div class="hidden lg:flex flex-1 p-margin-desktop overflow-y-auto bg-background flex-col max-w-max-width-editor mx-auto w-full">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="sell" style="font-variation-settings: 'FILL' 1;">sell</span>
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface">#design-system</h2>
+<p class="font-body-md text-body-md text-secondary">24 Memos associated</p>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Memo Card -->
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-5 shadow-soft hover:shadow-active hover:border-primary/50 transition-all group cursor-text">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 group-hover:text-primary transition-colors">Color Palette Tokenization Strategy</h3>
+<p class="font-body-md text-body-md text-secondary mb-4 line-clamp-2">When establishing the semantic color scale, ensure we have enough contrast between surface-container and surface-container-highest to support layered UI patterns without relying heavily on borders...</p>
+<div class="flex items-center gap-2">
+<span class="bg-surface-container-high px-2 py-1 rounded text-label-caps font-label-caps text-primary border border-primary/20">#design-system</span>
+<span class="bg-surface-container px-2 py-1 rounded text-label-caps font-label-caps text-secondary border border-outline-variant/30">#colors</span>
+</div>
+</div>
+<!-- Memo Card -->
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-5 shadow-soft hover:shadow-active hover:border-primary/50 transition-all group cursor-text">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 group-hover:text-primary transition-colors">Typography Hierarchy Guidelines</h3>
+<p class="font-body-md text-body-md text-secondary mb-4 line-clamp-2">Use display-lg strictly for marketing or hero sections. In the product workspace, headline-md is the highest level we should employ to maintain information density. Body-md is our workhorse.</p>
+<div class="flex items-center gap-2">
+<span class="bg-surface-container-high px-2 py-1 rounded text-label-caps font-label-caps text-primary border border-primary/20">#design-system</span>
+<span class="bg-surface-container px-2 py-1 rounded text-label-caps font-label-caps text-secondary border border-outline-variant/30">#typography</span>
+<span class="bg-surface-container px-2 py-1 rounded text-label-caps font-label-caps text-secondary border border-outline-variant/30">#guidelines</span>
+</div>
+</div>
+<!-- Memo Card with Image -->
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-5 shadow-soft hover:shadow-active hover:border-primary/50 transition-all group cursor-text flex gap-4">
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 group-hover:text-primary transition-colors">Component: SideNavBar Structural Logic</h3>
+<p class="font-body-md text-body-md text-secondary mb-4 line-clamp-2">The side navigation must be fixed on desktop but transform into a hidden drawer or bottom bar on mobile to prioritize the canvas area. See attached wireframe for breakpoints.</p>
+<div class="flex items-center gap-2">
+<span class="bg-surface-container-high px-2 py-1 rounded text-label-caps font-label-caps text-primary border border-primary/20">#design-system</span>
+<span class="bg-surface-container px-2 py-1 rounded text-label-caps font-label-caps text-secondary border border-outline-variant/30">#components</span>
+</div>
+</div>
+<div class="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden border border-outline-variant/40 hidden sm:block bg-surface-container">
+<img class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity" data-alt="A clean, minimalist wireframe sketch of a user interface sidebar, showing boxes and lines for navigation elements. Rendered in a simple, high-contrast monochrome style on a stark white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTjcH5KYFUyMZdEmRnns-g-U4yrpvMCmtIoMX8br8pFAmW8FNaHeZkDO_7xu6RKwSuw1ORk1-5KDlxzm7ezbJ-hN079KD5jIi3srgHOGbm5-urIXwABDaOgdMlFwD91idl8dfDO-w20gwFLX71zMeJqmp415SEpw22xQW46J2fVKPCoTMd5zOjZnsc_6L8URM6iKXjfTIZu8BTXQyQ_Z-a-4U3VX1ZQQRKv6-dP0sgSxz5pNK7lvnGpQ"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

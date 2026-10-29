@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Second Brain - Search Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "error": "#ffb4ab",
+          "inverse-primary": "#4953bc",
+          "surface-container-high": "#222a3d",
+          "on-primary-fixed-variant": "#2f3aa3",
+          "light-primary": "#3730a3",
+          "secondary-container": "#39485a",
+          "dark-surface-dim": "#0b1120",
+          "secondary": "#b9c8de",
+          "light-on-surface": "#191c1e",
+          "light-outline-variant": "#c8c4d5",
+          "dark-outline": "#334155",
+          "on-tertiary": "#00354a",
+          "light-primary-container": "#e0e7ff",
+          "on-surface": "#dae2fd",
+          "dark-primary-container": "#3730a3",
+          "dark-surface-container-low": "#131d31",
+          "light-surface-container-high": "#e6e8ea",
+          "error-container": "#93000a",
+          "dark-surface-container-lowest": "#070d19",
+          "surface-container-highest": "#2d3449",
+          "primary-fixed-dim": "#bdc2ff",
+          "primary": "#bdc2ff",
+          "outline-variant": "#454653",
+          "dark-surface-container-high": "#334155",
+          "tertiary-fixed": "#c4e7ff",
+          "light-on-primary": "#ffffff",
+          "surface-variant": "#2d3449",
+          "dark-secondary": "#94a3b8",
+          "surface-container-low": "#131b2e",
+          "dark-secondary-container": "#1e293b",
+          "tertiary-fixed-dim": "#7bd0ff",
+          "on-primary": "#131e8c",
+          "dark-surface-bright": "#1e293b",
+          "surface-dim": "#0b1326",
+          "dark-on-primary-container": "#e0e7ff",
+          "on-tertiary-fixed-variant": "#004c69",
+          "light-surface": "#f7f9fb",
+          "on-secondary-fixed": "#0d1c2d",
+          "secondary-fixed-dim": "#b9c8de",
+          "on-tertiary-container": "#003246",
+          "light-surface-container-lowest": "#ffffff",
+          "on-tertiary-fixed": "#001e2c",
+          "primary-container": "#818cf8",
+          "dark-on-secondary": "#0f172a",
+          "light-on-surface-variant": "#464553",
+          "dark-on-primary": "#0f172a",
+          "on-background": "#dae2fd",
+          "dark-code-bg": "#090d16",
+          "secondary-fixed": "#d4e4fa",
+          "tertiary-container": "#00a0d7",
+          "dark-primary": "#818cf8",
+          "surface-tint": "#bdc2ff",
+          "surface-container": "#171f33",
+          "dark-surface-container": "#1e293b",
+          "tertiary": "#7bd0ff",
+          "light-outline": "#777584",
+          "light-surface-container": "#eceef0",
+          "dark-on-surface": "#f8fafc",
+          "on-secondary-fixed-variant": "#39485a",
+          "dark-surface-container-highest": "#475569",
+          "on-error-container": "#ffdad6",
+          "on-error": "#690005",
+          "surface": "#0b1326",
+          "inverse-surface": "#dae2fd",
+          "on-surface-variant": "#c6c5d5",
+          "dark-selection": "#312e81",
+          "on-secondary-container": "#a7b6cc",
+          "dark-on-surface-variant": "#94a3b8",
+          "surface-container-lowest": "#060e20",
+          "dark-surface": "#0f172a",
+          "outline": "#908f9e",
+          "dark-outline-variant": "#1e293b",
+          "on-primary-container": "#101b8a",
+          "on-secondary": "#233143",
+          "surface-bright": "#31394d",
+          "background": "#0b1326",
+          "primary-fixed": "#e0e0ff",
+          "on-primary-fixed": "#000767",
+          "inverse-on-surface": "#283044"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "max-width-editor": "800px",
+          "sidebar-width": "260px",
+          "margin": "1rem",
+          "space-xs": "0.25rem",
+          "space-2xl": "3rem",
+          "space-xl": "2rem",
+          "gutter-lg": "1.5rem",
+          "space-md": "1rem",
+          "margin-desktop": "2rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1.5rem",
+          "gutter": "1rem",
+          "margin-tablet": "1.5rem"
+        },
+        "fontFamily": {
+          "label-md": ["Inter"],
+          "body-md": ["Inter"],
+          "body-sm": ["Inter"],
+          "body-lg": ["Inter"],
+          "label-caps": ["JetBrains Mono"],
+          "headline-md": ["Inter"],
+          "headline-sm": ["Inter"],
+          "code-inline": ["JetBrains Mono"],
+          "code-block": ["JetBrains Mono"],
+          "headline-lg-mobile": ["Inter"],
+          "display-lg": ["Inter"]
+        },
+        "fontSize": {
+          "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+          "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+          "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+          "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+          "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "500" }],
+          "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+          "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+          "code-inline": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+          "code-block": ["13px", { "lineHeight": "22px", "fontWeight": "400" }],
+          "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+          "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+        }
+      }
+    }
+  }
+</script>
+<style>
+        body {
+            background-color: #0b1326;
+        }
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 16px;
+        }
+        @media (min-width: 768px) {
+            .masonry-grid { column-count: 2; }
+        }
+        @media (min-width: 1024px) {
+            .masonry-grid { column-count: 3; }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 16px;
+        }
+        .highlight-text {
+            background-color: rgba(129, 140, 248, 0.28);
+            color: #bdc2ff;
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased bg-background">
+<!-- Desktop Sidebar -->
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-screen w-sidebar-width bg-surface-container-lowest border-r border-outline-variant/30 py-margin-desktop space-y-2 flat no shadows z-50">
+<!-- Header -->
+<div class="px-gutter mb-6">
+<div class="flex items-center space-x-3">
+<img alt="User Workspace" class="w-10 h-10 rounded-full object-cover shadow-sm ring-1 ring-outline-variant/40" data-alt="A small, crisp, minimalist avatar image for a digital workspace profile. The image features subtle geometric patterns in soft blues and greys on a pure white background. It conveys a professional, hyper-organized, and intellectually dependable aesthetic suitable for a 'Second Brain' application. Bright, clean lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDa526f1hkh9WD-CP6PGxoyUOMugVCA1JoTWY96pljbJ4DkxcMqq8b_czr1xmrHiueFYcVgKrqUGPTJ6H_dkcYjUw0ljYHV1g1baEw16chboHBjThpiFz-yOmZc8sJLl2ow0EmQC7o30ICr9YXmm1DDl-qdwS4tDBmxxzkehGDQrIYYwhlplBsAICtiJbi4U4PjroR9Bv0X8dtqyrj9-UuJTz8Fha4yRY7CMocB5fjmaAHkTPov0aFk3w"/>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-black text-primary">Second Brain</h1>
+<p class="font-label-md text-label-md text-secondary">Deep Work Mode</p>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="px-gutter mb-4">
+<button class="w-full bg-primary-container hover:bg-dark-primary-container text-on-primary-container font-label-md text-label-md py-2 px-4 rounded-lg flex items-center justify-center space-x-2 transition-all shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+<span class="font-semibold text-white">New Memo</span>
+</button>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 px-2 space-y-1">
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="inbox">inbox</span>
+<span>All Memos</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+<span>Favorites</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="sell">sell</span>
+<span>Tags</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<!-- Footer Tabs -->
+<div class="px-2 space-y-1 mt-auto">
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="archive">archive</span>
+<span>Archive</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+<span>Trash</span>
+</a>
+</div>
+</aside>
+<!-- Mobile Top Nav -->
+<header class="md:hidden fixed top-0 w-full bg-surface-container-lowest border-b border-outline-variant/30 shadow-sm z-40 flex justify-between items-center h-16 px-gutter">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Second Brain</h1>
+<div class="flex items-center space-x-4">
+<button class="text-on-surface-variant hover:bg-surface-container transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="bg-primary-container text-white font-label-md text-label-md px-3 py-1.5 rounded-lg active:scale-95 transition-transform duration-200 shadow-sm font-semibold">
+                New Memo
+            </button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="md:ml-sidebar-width pt-20 md:pt-margin-desktop px-gutter md:px-margin-desktop min-h-screen bg-background">
+<!-- Search Header Section -->
+<div class="max-w-max-width-editor mx-auto mb-8">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary" style="font-variation-settings: 'FILL' 0;">search</span>
+<input autofocus="" class="w-full bg-surface-container-low border-2 border-primary-container rounded-xl py-3 pl-12 pr-12 font-headline-sm text-headline-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-0 focus:border-primary shadow-[0_4px_16px_rgba(0,0,0,0.4)] transition-all" type="text" value="postgres"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-2">
+<span class="font-label-caps text-label-caps text-secondary bg-surface-container-high px-1.5 py-0.5 rounded border border-outline-variant/50">⌘K</span>
+<button class="text-secondary hover:text-on-surface transition-colors" onclick="this.previousElementSibling.previousElementSibling.value=''">
+<span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+</button>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex items-center justify-between mt-6 border-b border-outline-variant/30 pb-2">
+<p class="font-body-md text-body-md text-secondary">Found 4 results for "<span class="text-on-surface font-semibold">postgres</span>"</p>
+<div class="flex items-center space-x-4">
+<span class="font-label-md text-label-md text-secondary">Sort by:</span>
+<select class="bg-transparent font-label-md text-label-md text-on-surface border-none focus:ring-0 p-0 cursor-pointer pr-4">
+<option class="bg-surface-container" selected="" value="relevance">Relevance</option>
+<option class="bg-surface-container" value="date">Date</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Search Results Grid -->
+<div class="max-w-max-width-editor mx-auto masonry-grid">
+<!-- Card 1 -->
+<div class="masonry-item bg-surface-container-low rounded-xl p-5 border border-outline-variant/30 shadow-[0_4px_12px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.45)] hover:border-primary/40 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Database Migration Strategy</h3>
+<span class="font-label-md text-label-md text-secondary">Oct 12</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-3">
+                    For the Q4 infrastructure update, we need to transition from the legacy MySQL setup to <span class="highlight-text">postgres</span>. Ensure pg_dump is used for the initial schema extraction. Watch out for JSONB column indexing when moving the user metadata table to the new <span class="highlight-text">postgres</span> cluster.
+                </p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-high font-label-caps text-label-caps text-secondary px-2 py-1 rounded border border-outline-variant/20">DevOps</span>
+<span class="bg-primary-container/25 text-primary border border-primary/30 font-label-caps text-label-caps px-2 py-1 rounded">Postgres</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="masonry-item bg-surface-container-low rounded-xl p-5 border border-outline-variant/30 shadow-[0_4px_12px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.45)] hover:border-primary/40 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Local Dev Environment Setup</h3>
+<span class="font-label-md text-label-md text-secondary">Sep 28</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-3">
+                    Quick notes on spinning up the backend locally. Run `docker-compose up -d` to start Redis and the <span class="highlight-text">postgres</span> container. The default <span class="highlight-text">postgres</span> user is 'admin' and DB is 'main_app_dev'. Remember to run prisma migrations right after.
+                </p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-high font-label-caps text-label-caps text-secondary px-2 py-1 rounded border border-outline-variant/20">Guide</span>
+<span class="bg-surface-container-high font-label-caps text-label-caps text-secondary px-2 py-1 rounded border border-outline-variant/20">Docker</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="masonry-item bg-surface-container-low rounded-xl p-5 border border-outline-variant/30 shadow-[0_4px_12px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.45)] hover:border-primary/40 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Meeting Notes: API Performance</h3>
+<span class="font-label-md text-label-md text-secondary">Sep 15</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">
+                    The slow response times on the /analytics endpoint are mostly due to unoptimized queries hitting the primary <span class="highlight-text">postgres</span> instance. Action item: Implement read replicas and review the indexing strategy on the events table.
+                </p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-high font-label-caps text-label-caps text-secondary px-2 py-1 rounded border border-outline-variant/20">Meeting</span>
+<span class="bg-surface-container-high font-label-caps text-label-caps text-secondary px-2 py-1 rounded border border-outline-variant/20">Performance</span>
+</div>
+</div>
+</div>
+</main>
+</body></html>
