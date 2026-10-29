@@ -29,25 +29,47 @@ rules, reference conflicts, and application design decisions.
 
 | File | Responsibility |
 | --- | --- |
-| [tokens.foundation.css](src/styles/tokens.foundation.css) | Stitch light palette, typography, spacing, radius, and shadow values. |
+| [tokens.foundation.css](src/styles/tokens.foundation.css) | Stitch light and dark palettes, typography, spacing, radius, and shadow values. |
 | [tokens.semantic.css](src/styles/tokens.semantic.css) | Component color roles, Tailwind color utilities, and compatibility aliases. |
 | [tailwind.css](src/styles/tailwind.css) | Shared CSS entry, Google Fonts import, token imports, and the class-based `dark:` variant. |
 | [customTailwindMerge.ts](src/utils/customTailwindMerge.ts) | Merge rules for named text sizes, shadows, and font weights. |
 
-The `--ds-palette-*` variables hold the source Stitch light palette. Semantic
+Toggle `.dark` on the document or a preview container to switch themes.
+Both semantic variables and Tailwind `dark:` utilities follow this class.
+Define role aliases at each theme boundary so scoped previews resolve local
+colors. The `--ds-palette-*` variables hold the active palette. Semantic
 variables such as `--primary` and `--secondary` map that palette to component
 roles. Tailwind exposes these roles through utilities such as `bg-primary`
 and `text-secondary-foreground`.
+
+Read the [dark theme mapping](../../docs/design/stitch/README.md#dark-theme-mapping)
+for conflicts, remaining palette roles, and component mappings. All Stitch
+color utilities follow the active palette, including inverse and fixed colors.
+
+Use the dedicated `input-background`, `secondary-hover`, `popover-border`,
+`code-bg`, `code-foreground`, and `code-border` utilities for these component
+treatments. Selection colors are available as `selection:bg-selection` and
+`selection:text-selection-foreground`. Overlays can use `bg-modal`,
+`border-modal-border`, `bg-scrim`, and `backdrop-blur-overlay`.
+
+The existing `shadow-elev-1` and `shadow-elev-2` utilities use each theme's
+elevation values. In dark mode, pair them with `bg-card border-border` for
+cards and `bg-popover border-popover-border` for floating surfaces.
 
 Use `text-muted-foreground` for supporting text and placeholders. Use
 `bg-muted` for subtle surfaces. Add chart roles when charts need a palette.
 
 ### Typography utilities
 
-All eight DESIGN.md typography styles have named text-size and font-family
+All eleven DESIGN.md typography styles have named text-size and font-family
 utilities. Pair `font-label-caps` with `text-label-caps` for monospace labels.
 The text-size utility sets size, line height, weight, and any specified letter
 spacing. The font-family utility selects the typeface.
+
+Use `font-code-inline text-code-inline` and `font-code-block text-code-block`
+for code. Use `font-body-sm text-body-sm` for small body text. See the
+[typography and spacing decisions](../../docs/design/stitch/README.md#shared-typography-and-spacing)
+for source values and theme policy.
 
 The following aliases are also available:
 
@@ -69,15 +91,17 @@ Use the configured `twMerge` from `src/utils/customTailwindMerge.ts` when
 merging component classes. Register new named text sizes there. This lets
 size overrides replace earlier sizes without removing text colors.
 
+### Spacing utilities
+
+Use named spacing utilities such as `gap-gutter-lg`, `px-margin-tablet`,
+and `p-space-xs` through `p-space-2xl`.
+
 ### Disabled styles
 
 The `disabled-bg`, `disabled-fg`, and `disabled-border` color utilities
 implement the [disabled control decisions](../../docs/design/stitch/README.md#disabled-controls).
-They mix their source colors with transparent in sRGB. The `foreground` role
-provides disabled content and filled-button colors. The `border` role provides
-the disabled input border color.
+They mix their source colors with transparent in sRGB.
 
-Define these variables at each theme boundary so they resolve local colors.
 Do not also reduce the whole control's opacity. This would attenuate the
 individual color opacities a second time.
 
@@ -97,8 +121,8 @@ Reconcile generated styles with the Stitch design rules:
   This preserves the named typography styles when classes are overridden.
 - Replace default disabled opacity classes with the disabled color utilities
   and the component styles specified in the Stitch README.
-- Use the documented 1px focus ring and 1px offset when suppressing browser
-  outlines.
+- Follow the [keyboard focus rules](../../docs/design/stitch/README.md#keyboard-focus)
+  when suppressing browser outlines.
 
 ### Color aliases scheduled for removal
 

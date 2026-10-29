@@ -33,6 +33,18 @@
   --ring: var(--primary);
   --outline: var(--ds-palette-outline);
 
+  --input-background: var(--background);
+  --secondary-hover: var(--surface-container-high);
+  --popover-border: var(--border);
+  --modal: var(--card);
+  --modal-border: var(--border);
+  --scrim: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --code-bg: var(--ds-palette-code-bg);
+  --code-foreground: var(--primary);
+  --code-border: var(--ds-palette-outline-variant);
+  --selection: var(--ds-palette-selection);
+  --selection-foreground: var(--ds-palette-on-primary-fixed);
+
   --sidebar: var(--card);
   --sidebar-foreground: var(--foreground);
   --sidebar-primary: var(--primary);
@@ -47,31 +59,20 @@
   --ds-disabled-border: color-mix(in srgb, var(--border) 30%, transparent);
 }
 
-/* Stitch defines only light colors. Derive dark surfaces from the preview base. */
 .dark {
-  --background: var(--color-slate-950);
-  --foreground: var(--color-slate-50);
-
-  --surface: var(--background);
-  --surface-dim: var(--background);
-  --surface-bright: var(--surface-container-highest);
-  --surface-container-lowest: color-mix(in oklab, var(--background) 97%, var(--foreground));
-  --surface-container-low: color-mix(in oklab, var(--background) 94%, var(--foreground));
-  --surface-container: color-mix(in oklab, var(--background) 90%, var(--foreground));
-  --surface-container-high: color-mix(in oklab, var(--background) 86%, var(--foreground));
-  --surface-container-highest: color-mix(in oklab, var(--background) 82%, var(--foreground));
-
-  --primary: var(--color-indigo-100);
-  --primary-foreground: var(--background);
-  --secondary: color-mix(in oklab, var(--background) 80%, var(--foreground));
+  --card: var(--surface-container);
+  --popover: var(--surface-container-high);
+  --secondary: transparent;
   --secondary-foreground: var(--foreground);
-  --muted-foreground: color-mix(in oklab, var(--foreground) 55%, var(--background));
-  --accent: color-mix(in oklab, var(--primary) 10%, var(--background));
-  --destructive: var(--color-red-300);
-  --destructive-foreground: var(--background);
-
-  --border: color-mix(in oklab, var(--foreground) 18%, var(--background));
-  --outline: color-mix(in oklab, var(--foreground) 55%, var(--background));
+  --accent: var(--ds-palette-primary-container);
+  --border: var(--ds-palette-outline);
+  --input-background: var(--surface-dim);
+  --secondary-hover: var(--surface-container);
+  --popover-border: var(--surface-container-highest);
+  --modal-border: color-mix(in srgb, var(--primary) 20%, transparent);
+  --scrim: color-mix(in srgb, var(--surface-container-lowest) 75%, transparent);
+  --selection-foreground: var(--foreground);
+  --sidebar: var(--surface-container-lowest);
 }
 
 /* expose as Tailwind class */
@@ -89,7 +90,7 @@
   --color-inverse-surface: var(--ds-palette-inverse-surface);
   --color-inverse-on-surface: var(--ds-palette-inverse-on-surface);
   --color-outline: var(--outline);
-  --color-outline-variant: var(--border);
+  --color-outline-variant: var(--ds-palette-outline-variant);
   --color-surface-tint: var(--ds-palette-surface-tint);
   --color-primary-container: var(--ds-palette-primary-container);
   --color-on-primary-container: var(--ds-palette-on-primary-container);
@@ -116,7 +117,18 @@
   --color-tertiary-fixed-dim: var(--ds-palette-tertiary-fixed-dim);
   --color-on-tertiary-fixed: var(--ds-palette-on-tertiary-fixed);
   --color-on-tertiary-fixed-variant: var(--ds-palette-on-tertiary-fixed-variant);
-  --color-surface-variant: var(--surface-container-highest);
+  --color-surface-variant: var(--ds-palette-surface-variant);
+  --color-input-background: var(--input-background);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-popover-border: var(--popover-border);
+  --color-modal: var(--modal);
+  --color-modal-border: var(--modal-border);
+  --color-scrim: var(--scrim);
+  --color-code-bg: var(--code-bg);
+  --color-code-foreground: var(--code-foreground);
+  --color-code-border: var(--code-border);
+  --color-selection: var(--selection);
+  --color-selection-foreground: var(--selection-foreground);
 
   /* shadcn semantic roles */
   --color-background: var(--background);

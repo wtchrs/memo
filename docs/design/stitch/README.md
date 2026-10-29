@@ -57,15 +57,17 @@ for token files, Tailwind utilities, and component migration instructions.
 - Load Inter and JetBrains Mono from Google Fonts, as the dashboard export
   does. This supplies the specified typefaces without bundled font files.
   Use local fallback fonts while fonts load or if the service is unavailable.
-- Use the dashboard memo-card hover shadow for level 2. DESIGN.md requires
-  increased depth but does not specify its numeric value. The dashboard
-  provides this treatment for memo cards. Its shadow is stronger than the
-  tag export's active shadow and gives hovered cards a clearer depth change.
+- Use the light dashboard memo-card hover shadow for light level 2.
+  The light DESIGN.md requires increased depth but does not specify its value.
+  The dashboard provides this treatment for memo cards. Its shadow is stronger
+  than the tag export's active shadow and gives hovered cards a clearer depth
+  change.
 
 ### Semantic color roles
 
 The role names follow [shadcn theming](https://ui.shadcn.com/docs/theming).
-The mappings below preserve Stitch's light theme and visual hierarchy.
+The mappings below preserve Stitch's light theme and visual hierarchy. Dark
+overrides are listed under [Dark theme mapping](#dark-theme-mapping).
 
 | Role | Stitch value or derivation | Reason |
 | --- | --- | --- |
@@ -92,11 +94,12 @@ for disabled text and icons. Use it at 12% opacity for disabled filled-button
 backgrounds, with a transparent border and no shadow. These choices reduce
 emphasis and remove the raised appearance of available actions.
 
-Use `surface-container-low` for disabled input backgrounds and
-`outline-variant` at 30% opacity for their borders. The solid background
-preserves the field shape. The weaker border distinguishes the field from
-available inputs. Secondary buttons retain their full slate text color,
-border, and shadow, so they remain distinct from disabled controls.
+Use `surface-container-low` for disabled input backgrounds and `border` at 30%
+opacity for their borders. The solid background preserves the field shape. The
+weaker border distinguishes the field from available inputs. In dark mode,
+`outline-variant` at this opacity is too close to the input background.
+Available secondary buttons retain their full theme text color, border, and
+shadow, so they remain distinct from disabled controls.
 
 Apply opacity to individual colors. This keeps the background, content, and
 border independently controlled as their colors blend with the surface below.
@@ -117,7 +120,7 @@ These changes keep the control's dimensions unchanged.
 Show the ring on `focus-visible` when suppressing the browser outline. Use
 the same ring width and offset when adding shadcn components.
 
-### Dark theme references
+### Dark theme mapping
 
 The [dark DESIGN.md](cognitive_architecture/dark/DESIGN.md) supplies the dark
 palette and component treatments. It contains two color sets that differ:
@@ -132,25 +135,65 @@ The document's prose uses the explicit `dark-*` set. The editor and search
 HTML use the unprefixed primary value. The dashboard and tag HTML override it
 with `#818cf8`. The HTML also retains the smaller radius scale described above.
 
-The dark document defines `label-caps` at 11px with 0.06em letter spacing.
-The light document defines it at 12px with 0.05em letter spacing. Check these
-differences when mapping the dark references to application tokens. Record
-the selected values and their reasons here.
+Use the explicit `dark-*` values when available. They agree with the document's
+semantic mapping and component rules. Use `dark-surface` for `background` and
+`dark-on-surface` for `on-background`. Map `surface-variant` to the highest dark
+container. Use the dark primary for `surface-tint` so tinted surfaces use the
+same accent as actions. The dark document's `light-*` values do not replace
+the light document's palette.
 
-### Current dark preview
+Use the dark document's unprefixed values for roles without a `dark-*` value:
+inverse colors, `on-secondary-container`, tertiary colors, error colors, and
+fixed colors. These are explicit source values. This also makes all container,
+inverse, fixed, and tertiary utilities respond to the active theme.
 
-The frontend still uses a fallback dark palette. It has not been mapped to the
-Stitch dark references. The preview uses a slate canvas, light text, pale indigo
-primary, and pale red error colors. Surface levels mix the canvas with 3%, 6%,
-10%, 14%, and 18% foreground, from `surface-container-lowest` through
-`surface-container-highest`. The canvas supplies `surface` and `surface-dim`.
-The highest container supplies `surface-bright`. Secondary actions use a 20%
-foreground mix. Accent backgrounds use a 10% primary mix.
+| Dark role | Value or source | Reason |
+| --- | --- | --- |
+| `background` / `foreground` | `#0f172a` / `#f8fafc` | Explicit dark canvas and text. |
+| `card` | `#1e293b` | The document specifies this surface for level 1 cards, although screen exports use lower surfaces. |
+| `popover` / `popover-border` | [`dark-surface-container-high` / `dark-surface-container-highest`](cognitive_architecture/dark/DESIGN.md) | Level 2 floating surfaces and borders. |
+| `primary` / `primary-foreground` | `#818cf8` / `#0f172a` | The action-button rule takes priority over the editor and search HTML. |
+| `secondary` / `secondary-foreground` | [Secondary action-button rule](cognitive_architecture/dark/DESIGN.md#components) | The document specifies outlined secondary buttons. |
+| `secondary-hover` | [`dark-secondary-container`](cognitive_architecture/dark/DESIGN.md) | Hover fill for secondary actions. |
+| `accent` / `accent-foreground` | [`dark-primary-container` / `dark-primary`](cognitive_architecture/dark/DESIGN.md) | Active navigation and chip fills follow the explicit component rules. |
+| `border`, `input` | `#334155` | Card and input boundaries use the dark outline. |
+| `outline-variant`, `code-border` | `#1e293b` | Keep the softer palette boundary separate from component borders. |
+| `input-background` | [`dark-surface-dim`](cognitive_architecture/dark/DESIGN.md) | Inset background for available inputs. |
+| `sidebar` | `#070d19` | The lowest surface follows the dashboard, search, and tag navigation exports. |
+| `code-bg` / `code-foreground` | [`dark-code-bg` / `dark-primary`](cognitive_architecture/dark/DESIGN.md) | Recessed code surfaces and inline syntax. |
+| `selection` / `selection-foreground` | `#312e81` / `#f8fafc` | The explicit selection fill with readable text, as in the dashboard export. |
+| `modal` / `modal-border` | `#1e293b` / 20% primary | Level 3 dialog core and edge. |
+| `scrim` | [Elevation 3 scrim](cognitive_architecture/dark/DESIGN.md#elevation--depth) | Level 3 backdrop with an 8px blur. |
 
-Toggle `.dark` on the document or a preview container. Both semantic variables
-and Tailwind `dark:` utilities follow this class. Define role aliases at each
-theme boundary so scoped previews resolve local colors. Surface utilities,
-their text colors, and outline utilities follow the active theme. The remaining
-utilities for primary, secondary, and error containers, inverse colors, fixed
-colors, and tertiary colors expose light palette values. Use the semantic roles
-for components that must change theme.
+Use the dark document's level 1 and level 2 shadows for `shadow-elev-1` and
+`shadow-elev-2`. Screen-specific shadows differ. The document defines the
+shared elevation scale and takes priority. Keep `ring` at the solid primary
+color for keyboard focus. The input rule's 25% glow can supplement this ring.
+It does not replace the visible focus indicator documented above.
+
+Keep the existing light values. New roles without a light reference use the
+existing hierarchy: code uses the low container, selection uses the primary
+fixed pair, and secondary hover uses the high container. Input backgrounds
+use the canvas. Popover and modal borders use the shared border. Modals use
+the card surface with a 10% foreground scrim. Use an 8px overlay blur in both
+themes because the light document does not specify a blur length.
+
+### Shared typography and spacing
+
+Use the light document's typography values in both themes. Set `label-caps`
+to 12px with 0.05em tracking. Keep mobile headings at 28px with 0em tracking.
+The light document does not specify mobile heading tracking; use 0em.
+These shared values keep text size and layout stable during theme changes.
+They take priority over the dark document's 11px label size, 0.06em label
+tracking, and -0.015em mobile heading tracking.
+
+Add `body-sm`, `code-inline`, and `code-block` to both themes. These styles
+describe content roles that are useful in either theme. Their size, line
+height, and weight follow the dark document. Load JetBrains Mono at weight
+400 for code and weight 500 for labels.
+
+Share the additional spacing tokens across themes. Use 24px for `gutter-lg`
+and `margin-tablet`. Keep `margin` and `margin-mobile` at 16px. The named
+`space-xs` through `space-2xl` values follow the spacing definitions in
+[dark DESIGN.md](cognitive_architecture/dark/DESIGN.md).
+Keep the existing 260px sidebar and 800px editor width from the shared rules.

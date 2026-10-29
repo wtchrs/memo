@@ -19,6 +19,8 @@
   needs. These states include responsive layouts, keyboard focus, loading,
   errors, and empty content. Record significant design decisions in the design
   README.
+- Keep frontend implementation and usage instructions in the
+  [frontend README](apps/frontend/README.md).
 - Keep the original Stitch file contents unchanged.
 
 ## Documentation
@@ -32,6 +34,8 @@
 - Use the same term for the same concept. Keep accurate technical terms.
 - Write for readers who do not know the project history or prior conversations.
   Explain the current structure, usage, and reasons for decisions.
+- Keep each topic in one primary document. Link to that document
+  instead of repeating its content in other documents.
 - Keep change history in Git. Do not require readers to know an earlier file
   layout to understand a document.
 - Apply these writing rules to documents you create or edit. Do not rewrite

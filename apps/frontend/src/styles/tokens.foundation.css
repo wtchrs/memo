@@ -47,6 +47,68 @@
     --ds-palette-background: #f7f9fb;
     --ds-palette-on-background: #191c1e;
     --ds-palette-surface-variant: #e0e3e5;
+    --ds-palette-code-bg: var(--ds-palette-surface-container-low);
+    --ds-palette-selection: var(--ds-palette-primary-fixed);
+
+    --ds-shadow-elev-1: 0 1px 3px rgb(0 0 0 / 0.05), 0 1px 2px rgb(0 0 0 / 0.03);
+    /* Light DESIGN.md leaves hover depth open; use the dashboard export. */
+    --ds-shadow-elev-2: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+}
+
+.dark {
+    /* Prefer explicit dark-* values; see the Stitch README for remaining roles. */
+    --ds-palette-surface: #0f172a;
+    --ds-palette-surface-dim: #0b1120;
+    --ds-palette-surface-bright: #1e293b;
+    --ds-palette-surface-container-lowest: #070d19;
+    --ds-palette-surface-container-low: #131d31;
+    --ds-palette-surface-container: #1e293b;
+    --ds-palette-surface-container-high: #334155;
+    --ds-palette-surface-container-highest: #475569;
+    --ds-palette-on-surface: #f8fafc;
+    --ds-palette-on-surface-variant: #94a3b8;
+    --ds-palette-inverse-surface: #dae2fd;
+    --ds-palette-inverse-on-surface: #283044;
+    --ds-palette-outline: #334155;
+    --ds-palette-outline-variant: #1e293b;
+    --ds-palette-surface-tint: #818cf8;
+    --ds-palette-primary: #818cf8;
+    --ds-palette-on-primary: #0f172a;
+    --ds-palette-primary-container: #3730a3;
+    --ds-palette-on-primary-container: #e0e7ff;
+    --ds-palette-inverse-primary: #4953bc;
+    --ds-palette-secondary: #94a3b8;
+    --ds-palette-on-secondary: #0f172a;
+    --ds-palette-secondary-container: #1e293b;
+    --ds-palette-on-secondary-container: #a7b6cc;
+    --ds-palette-tertiary: #7bd0ff;
+    --ds-palette-on-tertiary: #00354a;
+    --ds-palette-tertiary-container: #00a0d7;
+    --ds-palette-on-tertiary-container: #003246;
+    --ds-palette-error: #ffb4ab;
+    --ds-palette-on-error: #690005;
+    --ds-palette-error-container: #93000a;
+    --ds-palette-on-error-container: #ffdad6;
+    --ds-palette-primary-fixed: #e0e0ff;
+    --ds-palette-primary-fixed-dim: #bdc2ff;
+    --ds-palette-on-primary-fixed: #000767;
+    --ds-palette-on-primary-fixed-variant: #2f3aa3;
+    --ds-palette-secondary-fixed: #d4e4fa;
+    --ds-palette-secondary-fixed-dim: #b9c8de;
+    --ds-palette-on-secondary-fixed: #0d1c2d;
+    --ds-palette-on-secondary-fixed-variant: #39485a;
+    --ds-palette-tertiary-fixed: #c4e7ff;
+    --ds-palette-tertiary-fixed-dim: #7bd0ff;
+    --ds-palette-on-tertiary-fixed: #001e2c;
+    --ds-palette-on-tertiary-fixed-variant: #004c69;
+    --ds-palette-background: var(--ds-palette-surface);
+    --ds-palette-on-background: var(--ds-palette-on-surface);
+    --ds-palette-surface-variant: var(--ds-palette-surface-container-highest);
+    --ds-palette-code-bg: #090d16;
+    --ds-palette-selection: #312e81;
+
+    --ds-shadow-elev-1: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+    --ds-shadow-elev-2: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
 }
 
 @theme {
@@ -58,6 +120,9 @@
     --font-headline-sm: var(--font-sans);
     --font-body-lg: var(--font-sans);
     --font-body-md: var(--font-sans);
+    --font-body-sm: var(--font-sans);
+    --font-code-inline: var(--font-mono);
+    --font-code-block: var(--font-mono);
     --font-label-caps: var(--font-mono);
     --font-label-md: var(--font-sans);
     --font-headline-lg-mobile: var(--font-sans);
@@ -89,18 +154,21 @@
     --text-body-md--line-height: 20px;
     --text-body-md--font-weight: 400;
 
-    --text-label-caps: 12px;
-    --text-label-caps--line-height: 16px;
-    --text-label-caps--font-weight: 500;
-    --text-label-caps--letter-spacing: 0.05em;
+    --text-body-sm: 12px;
+    --text-body-sm--line-height: 18px;
+    --text-body-sm--font-weight: 400;
+
+    --text-code-inline: 13px;
+    --text-code-inline--line-height: 20px;
+    --text-code-inline--font-weight: 400;
+
+    --text-code-block: 13px;
+    --text-code-block--line-height: 22px;
+    --text-code-block--font-weight: 400;
 
     --text-label-md: 12px;
     --text-label-md--line-height: 16px;
     --text-label-md--font-weight: 500;
-
-    --text-headline-lg-mobile: 28px;
-    --text-headline-lg-mobile--line-height: 36px;
-    --text-headline-lg-mobile--font-weight: 700;
 
     /* Keep the existing primitive utilities on the Stitch type scale. */
     --text-sm: var(--text-body-md);
@@ -128,8 +196,17 @@
     --spacing: 4px;
     --spacing-unit: 4px;
     --spacing-gutter: 16px;
+    --spacing-gutter-lg: 24px;
+    --spacing-margin: 16px;
     --spacing-margin-mobile: 16px;
+    --spacing-margin-tablet: 24px;
     --spacing-margin-desktop: 32px;
+    --spacing-space-xs: 4px;
+    --spacing-space-sm: 8px;
+    --spacing-space-md: 16px;
+    --spacing-space-lg: 24px;
+    --spacing-space-xl: 32px;
+    --spacing-space-2xl: 48px;
     --spacing-sidebar-width: 260px;
     --spacing-max-width-editor: 800px;
 
@@ -141,8 +218,21 @@
     --radius-xl: 0.75rem;
     --radius-full: 9999px;
 
-    /* Shadow */
-    --shadow-elev-1: 0 1px 3px rgb(0 0 0 / 0.05), 0 1px 2px rgb(0 0 0 / 0.03);
-    /* DESIGN.md leaves hover depth open; use the dashboard export. */
-    --shadow-elev-2: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+    --blur-overlay: 8px;
+}
+
+/* Inline aliases resolve at the utility's element, including scoped previews. */
+@theme inline {
+    --text-label-caps: 12px;
+    --text-label-caps--line-height: 16px;
+    --text-label-caps--font-weight: 500;
+    --text-label-caps--letter-spacing: 0.05em;
+
+    --text-headline-lg-mobile: 28px;
+    --text-headline-lg-mobile--line-height: 36px;
+    --text-headline-lg-mobile--font-weight: 700;
+    --text-headline-lg-mobile--letter-spacing: 0em;
+
+    --shadow-elev-1: var(--ds-shadow-elev-1);
+    --shadow-elev-2: var(--ds-shadow-elev-2);
 }
