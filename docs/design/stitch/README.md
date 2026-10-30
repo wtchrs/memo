@@ -85,6 +85,10 @@ for disabled text and icons. Use it at 12% opacity for disabled filled-button
 backgrounds, with a transparent border and no shadow. These choices reduce
 emphasis and remove the raised appearance of available actions.
 
+To preserve their shape, disabled `outline` and `secondary` buttons retain a
+`disabled-border` stroke. This overrides the transparent-border rule for
+filled light secondary buttons.
+
 Use `surface-container-low` for disabled input backgrounds and `border` at 30%
 opacity for their borders. The solid background preserves the field shape. The
 weaker border distinguishes the field from available inputs. In dark mode,
@@ -114,6 +118,18 @@ the same ring width and offset when adding shadcn components.
 Keep this solid keyboard focus ring in both themes. It provides a visible
 indicator independently of the dark input rule's translucent glow. The glow
 can supplement the ring.
+
+### Button treatments
+
+In both themes:
+
+- Fill `destructive` buttons with the error color pair to emphasize destructive actions.
+- For enabled `default` and `destructive` buttons, use 90% background opacity on
+  hover and 80% while pressed, without movement. This unifies the differing
+  [screen treatments](editor/code.html).
+- Give `ghost` buttons less emphasis than `outline` with `muted-foreground` text.
+- Keep expanded `outline`, `ghost`, and `secondary` triggers highlighted with
+  their hover treatments to keep the expanded state visible.
 
 ### Dark theme mapping
 

@@ -115,9 +115,12 @@ individual color opacities a second time.
 
 ## shadcn migration
 
-The color roles are prepared for shadcn. Component generation is not yet
-configured. When initializing shadcn, use `src/styles/tailwind.css` as its
-CSS entry and enable `tailwind.cssVariables`.
+Component generation is configured in `components.json`. It uses Base UI,
+the `src/components/ui` directory, and `src/styles/tailwind.css` with
+`tailwind.cssVariables` enabled. The `cn()` helper uses the configured
+`twMerge` function.
+
+Add components from `frontend` with `bunx --bun shadcn@latest add <name>`.
 
 Reconcile generated styles with the Stitch design rules:
 
@@ -131,6 +134,25 @@ Reconcile generated styles with the Stitch design rules:
   and the component styles specified in the Stitch README.
 - Follow the [keyboard focus rules](../docs/design/stitch/README.md#keyboard-focus)
   when suppressing browser outlines.
+
+### Button
+
+Import the shadcn Button from `@/components/ui/button`. Its prop names,
+variants, size options, and defaults follow shadcn. Its styles use the
+[Stitch button decisions](../docs/design/stitch/README.md#button-treatments).
+
+```tsx
+import { Button } from '@/components/ui/button'
+
+<Button>Save memo</Button>
+<Button variant="secondary">Cancel</Button>
+<Button variant="destructive">Delete memo</Button>
+```
+
+Set `type="submit"` for form submission. Provide an accessible name such as
+`aria-label` for icon-only buttons. Use the `ui/Button` stories to inspect
+variants and disabled states in both themes. Disabled styles use Base UI's
+`data-disabled` attribute so they also cover `focusableWhenDisabled`.
 
 ### Color aliases scheduled for removal
 
