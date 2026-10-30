@@ -2,23 +2,27 @@
 
 ## Frontend design
 
-- Use the Stitch references in [docs/design/stitch](docs/design/stitch/README.md)
-  as the source of truth for frontend design.
+- Use the original DESIGN.md files as the base specification for frontend design.
 - Read [DESIGN.md](docs/design/stitch/cognitive_architecture/DESIGN.md) first
   for shared design rules and the light theme. For dark theme colors and styles,
   read the [dark DESIGN.md](docs/design/stitch/cognitive_architecture/dark/DESIGN.md).
   Follow each theme's design document when its screen references conflict with it.
+- Apply the interpretation rules and design decisions in
+  [the design README](docs/design/stitch/README.md). Do not record applications of
+  existing rules as separate decisions. A recorded decision overrides the original
+  specification only within its stated scope.
 - Use the screenshots to check layout and visual hierarchy. Use the exported
   HTML to understand styles and structure.
-- Do not silently combine conflicting values. When references conflict or
-  a design document is unclear, record the selected values and their reasons in
-  [the design README](docs/design/stitch/README.md).
+- Record application design decisions that future implementation must follow,
+  including intentional overrides of the source. State each decision's scope,
+  selected rule or value, and reason. Do not silently combine conflicting values.
+- Do not repeat unambiguous source values or rules in the design README.
+  Link to the source when needed.
 - Treat the references as design guidance. Example content, menus, and buttons
   do not define feature requirements.
 - For states without a reference, follow the design principles and accessibility
   needs. These states include responsive layouts, keyboard focus, loading,
-  errors, and empty content. Record significant design decisions in the design
-  README.
+  errors, and empty content.
 - Keep frontend implementation and usage instructions in the
   [frontend README](apps/frontend/README.md).
 - Keep the original Stitch file contents unchanged.
