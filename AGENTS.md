@@ -13,9 +13,11 @@
   specification only within its stated scope.
 - Use the screenshots to check layout and visual hierarchy. Use the exported
   HTML to understand styles and structure.
-- Record application design decisions that future implementation must follow,
-  including intentional overrides of the source. State each decision's scope,
-  selected rule or value, and reason. Do not silently combine conflicting values.
+- Record only design choices that future implementations must preserve,
+  including source conflicts, gaps, and intentional overrides. State each
+  decision's scope and selected rule or value in one sentence where possible.
+  Add a reason only when needed to prevent misinterpretation. Do not silently
+  combine conflicting values.
 - Do not repeat unambiguous source values or rules in the design README.
   Link to the source when needed.
 - Treat the references as design guidance. Example content, menus, and buttons
@@ -36,11 +38,13 @@
 - Write short, clear sentences. Keep one main idea in each sentence.
 - Prefer active voice. Use direct instructions for procedures.
 - Use the same term for the same concept. Keep accurate technical terms.
-- Write for readers who do not know the project history or prior conversations.
-  Explain the current structure, usage, and reasons for decisions.
-- Keep each topic in one primary document. Link to that document
-  instead of repeating its content in other documents.
+- Write for readers unfamiliar with the project. Include only what they need
+  to find and perform tasks or preserve decisions and non-obvious constraints.
+- Keep each topic in one primary document. Link to authoritative sources
+  instead of repeating their content or documenting deductions from existing rules.
 - Keep change history in Git. Do not require readers to know an earlier file
   layout to understand a document.
+- Before finishing, review documentation additions. Remove content whose
+  deletion would not change a reader's action or decision.
 - Apply these writing rules to documents you create or edit. Do not rewrite
   imported source files only to make them follow these rules.
