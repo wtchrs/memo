@@ -38,6 +38,7 @@
   --popover-border: var(--border);
   --modal: var(--card);
   --modal-border: var(--border);
+  --search-dialog-border: var(--modal-border);
   --scrim: color-mix(in srgb, var(--foreground) 10%, transparent);
   --code-bg: var(--ds-palette-code-bg);
   --code-foreground: var(--primary);
@@ -70,6 +71,7 @@
   --secondary-hover: var(--surface-container);
   --popover-border: var(--surface-container-highest);
   --modal-border: color-mix(in srgb, var(--primary) 20%, transparent);
+  --search-dialog-border: var(--surface-container-highest);
   --scrim: color-mix(in srgb, var(--surface-container-lowest) 75%, transparent);
   --selection-foreground: var(--foreground);
   --sidebar: var(--surface-container-lowest);
@@ -123,6 +125,7 @@
   --color-popover-border: var(--popover-border);
   --color-modal: var(--modal);
   --color-modal-border: var(--modal-border);
+  --color-search-dialog-border: var(--search-dialog-border);
   --color-scrim: var(--scrim);
   --color-code-bg: var(--code-bg);
   --color-code-foreground: var(--code-foreground);

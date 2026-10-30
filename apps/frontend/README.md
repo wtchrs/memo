@@ -34,6 +34,10 @@ rules, reference conflicts, and application design decisions.
 | [tailwind.css](src/styles/tailwind.css) | Shared CSS entry, Google Fonts import, token imports, and the class-based `dark:` variant. |
 | [customTailwindMerge.ts](src/utils/customTailwindMerge.ts) | Merge rules for named text sizes, shadows, and font weights. |
 
+Load the specified typefaces through Google Fonts in `tailwind.css`. The local
+fallback stacks in `tokens.foundation.css` cover font loading and service
+unavailability.
+
 Toggle `.dark` on the document or a preview container to switch themes.
 Both semantic variables and Tailwind `dark:` utilities follow this class.
 Define role aliases at each theme boundary so scoped previews resolve local
@@ -43,18 +47,22 @@ roles. Tailwind exposes these roles through utilities such as `bg-primary`
 and `text-secondary-foreground`.
 
 Read the [dark theme mapping](../../docs/design/stitch/README.md#dark-theme-mapping)
-for conflicts, remaining palette roles, and component mappings. All Stitch
-color utilities follow the active palette, including inverse and fixed colors.
+for palette conflicts and application choices. All Stitch color utilities follow
+the active palette, including inverse and fixed colors.
 
 Use the dedicated `input-background`, `secondary-hover`, `popover-border`,
 `code-bg`, `code-foreground`, and `code-border` utilities for these component
 treatments. Selection colors are available as `selection:bg-selection` and
-`selection:text-selection-foreground`. Overlays can use `bg-modal`,
-`border-modal-border`, `bg-scrim`, and `backdrop-blur-overlay`.
+`selection:text-selection-foreground`. Use `bg-modal`, `bg-scrim`, and
+`backdrop-blur-overlay` for dialog surfaces and backdrops. Use
+`border-modal-border` for general dialogs and `border-search-dialog-border`
+for the search and quick-switcher dialog container. Input focus styles apply
+to the input separately.
 
-The existing `shadow-elev-1` and `shadow-elev-2` utilities use each theme's
-elevation values. In dark mode, pair them with `bg-card border-border` for
-cards and `bg-popover border-popover-border` for floating surfaces.
+The `shadow-elev-1` and `shadow-elev-2` utilities set shadows independently of
+surface and border colors. Use `bg-card border-border` for default dark cards
+and `bg-popover border-popover-border` for generic dark popovers. Select hover
+and focus utilities from the component's specification.
 
 Use `text-muted-foreground` for supporting text and placeholders. Use
 `bg-muted` for subtle surfaces. Add chart roles when charts need a palette.
@@ -115,8 +123,8 @@ Reconcile generated styles with the Stitch design rules:
 
 - Preserve the semantic role mappings and the DESIGN.md radius scale.
   Generated radius formulas and component classes can differ from Stitch.
-  Use `rounded` for buttons and inputs, `rounded-lg` for cards, and
-  `rounded-full` for tags.
+  Choose radius utilities for each component using the
+  [Stitch interpretation rules](../../docs/design/stitch/README.md#using-the-references).
 - Make the generated `cn()` helper use the configured `twMerge` function.
   This preserves the named typography styles when classes are overridden.
 - Replace default disabled opacity classes with the disabled color utilities
