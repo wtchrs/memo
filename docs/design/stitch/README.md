@@ -29,6 +29,10 @@ DESIGN.md for dark theme colors and styles. Each design document takes priority
 over its screen references. Compare screenshots for layout and visual hierarchy.
 Consult the HTML for concrete styles and structure.
 
+Within the applicable theme's DESIGN.md, component-specific rules take precedence
+over general rules for the same element, property, and state. Use general rules
+where no component-specific rule applies.
+
 Translate these references into the existing React/Tailwind frontend and shadcn
 components. The HTML files are static prototypes with placeholder content and
 do not define the application's feature requirements.
