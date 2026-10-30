@@ -2,9 +2,9 @@
   "name": "second-brain",
   "private": true,
   "workspaces": [
-    "apps/frontend",
-    "apps/backend",
-    "packages/rpc"
+    "frontend",
+    "backend",
+    "rpc"
   ],
   "scripts": {
     "dev": "bun --filter '*' --elide-lines=0 dev",

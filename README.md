@@ -21,7 +21,7 @@ Install dependencies:
 bun install
 ```
 
-Create `apps/backend/.env` file:
+Create `backend/.env` file:
 ```
 DATABASE_URL=postgresql://user:password@localhost/sb_db
 TZ=Asia/Seoul

@@ -24,7 +24,7 @@
   needs. These states include responsive layouts, keyboard focus, loading,
   errors, and empty content.
 - Keep frontend implementation and usage instructions in the
-  [frontend README](apps/frontend/README.md).
+  [frontend README](frontend/README.md).
 - Keep the original Stitch file contents unchanged.
 
 ## Documentation

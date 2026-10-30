@@ -12,7 +12,7 @@ bun install
 bun run dev:frontend
 ```
 
-Run these commands from `apps/frontend`:
+Run these commands from `frontend`:
 
 | Command | Purpose |
 | --- | --- |
@@ -24,7 +24,7 @@ Run these commands from `apps/frontend`:
 
 ## Design tokens
 
-Read the [Stitch references](../../docs/design/stitch/README.md) for design
+Read the [Stitch references](../docs/design/stitch/README.md) for design
 rules, reference conflicts, and application design decisions.
 
 | File | Responsibility |
@@ -46,7 +46,7 @@ variables such as `--primary` and `--secondary` map that palette to component
 roles. Tailwind exposes these roles through utilities such as `bg-primary`
 and `text-secondary-foreground`.
 
-Read the [dark theme mapping](../../docs/design/stitch/README.md#dark-theme-mapping)
+Read the [dark theme mapping](../docs/design/stitch/README.md#dark-theme-mapping)
 for palette conflicts and application choices. All Stitch color utilities follow
 the active palette, including inverse and fixed colors.
 
@@ -76,7 +76,7 @@ spacing. The font-family utility selects the typeface.
 
 Use `font-code-inline text-code-inline` and `font-code-block text-code-block`
 for code. Use `font-body-sm text-body-sm` for small body text. See the
-[typography and spacing decisions](../../docs/design/stitch/README.md#shared-typography-and-spacing)
+[typography and spacing decisions](../docs/design/stitch/README.md#shared-typography-and-spacing)
 for source values and theme policy.
 
 The following aliases are also available:
@@ -107,7 +107,7 @@ and `p-space-xs` through `p-space-2xl`.
 ### Disabled styles
 
 The `disabled-bg`, `disabled-fg`, and `disabled-border` color utilities
-implement the [disabled control decisions](../../docs/design/stitch/README.md#disabled-controls).
+implement the [disabled control decisions](../docs/design/stitch/README.md#disabled-controls).
 They mix their source colors with transparent in sRGB.
 
 Do not also reduce the whole control's opacity. This would attenuate the
@@ -124,12 +124,12 @@ Reconcile generated styles with the Stitch design rules:
 - Preserve the semantic role mappings and the DESIGN.md radius scale.
   Generated radius formulas and component classes can differ from Stitch.
   Choose radius utilities for each component using the
-  [Stitch interpretation rules](../../docs/design/stitch/README.md#using-the-references).
+  [Stitch interpretation rules](../docs/design/stitch/README.md#using-the-references).
 - Make the generated `cn()` helper use the configured `twMerge` function.
   This preserves the named typography styles when classes are overridden.
 - Replace default disabled opacity classes with the disabled color utilities
   and the component styles specified in the Stitch README.
-- Follow the [keyboard focus rules](../../docs/design/stitch/README.md#keyboard-focus)
+- Follow the [keyboard focus rules](../docs/design/stitch/README.md#keyboard-focus)
   when suppressing browser outlines.
 
 ### Color aliases scheduled for removal

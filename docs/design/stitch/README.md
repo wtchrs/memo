@@ -43,7 +43,7 @@ URLs. The PNG files preserve the exported appearance without those dependencies.
 ## Application design decisions
 
 This section records unresolved source conflicts, design additions, and intentional
-overrides. See the [frontend README](../../../apps/frontend/README.md)
+overrides. See the [frontend README](../../../frontend/README.md)
 for token files, Tailwind utilities, and component migration instructions.
 
 - Use the DESIGN.md frontmatter background value, `#f7f9fb`. Its prose and the
